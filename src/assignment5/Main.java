@@ -1,4 +1,4 @@
-package startercode;
+package assignment5;
 	
 import javafx.application.Application;
 import javafx.scene.Scene;

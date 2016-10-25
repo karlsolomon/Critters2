@@ -10,7 +10,7 @@
  * Slip days used: <0>
  * Fall 2015
  */
-package startercode;
+package assignment5;
 
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
