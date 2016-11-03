@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class CritterWorld {
 	public static Map<Critter, Point> critterMap = new HashMap<Critter, Point>();	//official record of Critters and their location
+	public static Map<Critter, Point> updatedCritterMap = new HashMap<Critter, Point>();
 	public static Map<Critter, Point> babies = new HashMap<>();
 	private static int width = Params.world_width;
 	private static int height = Params.world_height;
@@ -78,9 +79,11 @@ public class CritterWorld {
 	}
 	
 	public static void doTimeStep(){
-		for(Critter i : critterMap.keySet()){
+		updatedCritterMap = critterMap;
+		for(Critter i : updatedCritterMap.keySet()){
 			i.doTimeStep();
 		}
+		critterMap = updatedCritterMap;
 	}
 	/**
 	 * Get random location on map to put newly generated Critter via Make Critter

@@ -237,7 +237,7 @@ public abstract class Critter {
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
 		Critter critter = null;
 		try{
-			Class<?> c = Class.forName("assignment4."+critter_class_name);
+			Class<?> c = Class.forName(myPackage + critter_class_name);
 			Constructor<?> newCon = c.getConstructor();
 			Object obj = newCon.newInstance();
 			critter = (Critter)obj;
