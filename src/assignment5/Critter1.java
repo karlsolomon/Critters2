@@ -30,9 +30,9 @@ public class Critter1 extends Critter{
 	
 	@Override
 	public CritterShape viewShape() {
-		// TODO Auto-generated method stub
-		return null;
+		return CritterShape.SQUARE;
 	}
+	public javafx.scene.paint.Color viewColor() { return javafx.scene.paint.Color.BLUE; }
 
 	@Override
 	public void doTimeStep() {
@@ -76,25 +76,24 @@ public class Critter1 extends Critter{
 	 */
 	@Override
 	public boolean fight(String opponent) {
-//		if(opponent.equals("1")){
-//			isPregnant = true;
-//			return CritterWorld.tryMove(this,dir, 1);
-//		}
-//		else if(opponent.equals("@")){
-//			return true;
-//		}
-//		else if(!isAwake){
-//			isAwake = true;
-//			return true;
-//		}else{
-//			if(!isPregnant){
-//				return true;
-//			}			
-//			else{
-//				return CritterWorld.tryMove(this,dir, 1);
-//			}
-//		}
-		return false;
+		if(opponent.equals("1")){
+			isPregnant = true;
+			return CritterWorld.tryMove(this,dir, 1);
+		}
+		else if(opponent.equals("@")){
+			return true;
+		}
+		else if(!isAwake){
+			isAwake = true;
+			return true;
+		}else{
+			if(!isPregnant){
+				return true;
+			}			
+			else{
+				return CritterWorld.tryMove(this,dir, 1);
+			}
+		}
 	}
 
 	private boolean willWakeUp(){
@@ -107,6 +106,10 @@ public class Critter1 extends Critter{
 	
 	private int getDirection(){
 		return genes[Critter.getRandomInt(8)];
+	}
+	@Override
+	public String toString(){
+		return "1";
 	}
 	
 }

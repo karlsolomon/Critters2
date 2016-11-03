@@ -25,12 +25,13 @@ public class Painter {
 		Shape s = null;
 		int size = 100;
 		/**
-		 * Cases:			| Shapes:	| Colors:
-		 * Case 0: Algae	| circle	| green
-		 * Case 1: Critter1	| square 	| blue
-		 * Case 2: Critter2	| triangle	| red
-		 * Case 3: Critter3	| star		| orange
-		 * Case 4: Critter4	| diamond	| black
+		 * Cases:						| Shapes:	| Colors:
+		 * Case 0: Algae				| circle	| green
+		 * Case 1: Critter1				| square 	| blue
+		 * Case 2: Critter2				| triangle	| red
+		 * Case 3: Critter3				| star		| orange
+		 * Case 4: Critter4				| diamond	| black
+		 * Case 5: AlgaephobicCritter	| diamond	| salmon
 		 */
 		switch(shapeIndex) {
 		case 0: s = new Rectangle(size, size); 
