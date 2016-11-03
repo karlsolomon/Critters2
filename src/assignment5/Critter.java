@@ -1,9 +1,14 @@
 package assignment5;
 
+import java.lang.reflect.Constructor;
 import java.util.List;
 
 public abstract class Critter {
 	/* NEW FOR PROJECT 5 */
+	
+	private Point location = new Point();
+	private boolean hasMoved = false;
+	
 	public enum CritterShape {
 		CIRCLE,
 		SQUARE,
@@ -65,25 +70,89 @@ public abstract class Critter {
 	private int x_coord;
 	private int y_coord;
 	
-	protected final void walk(int direction) {}
+	protected final void walk(int direction) {
+		energy -= Params.walk_energy_cost;
+		if (!hasMoved && energy > 0) {//checking if the critter has moved this step
+			direction = direction % 8;
+			location.update(direction);
+			hasMoved = true;//Comment out for testWalk
+		}
+	}
 	
-	protected final void run(int direction) {}
+	protected final void run(int direction) {
+		energy -= Params.run_energy_cost;
+		if (!hasMoved && energy > 0) {//checking if critter has moved already this step
+			direction = direction % 8;
+			location.update(direction);
+			location.update(direction);
+			hasMoved = true;//Comment out for testRun
+		}
+	}
 	
-	protected final void reproduce(Critter offspring, int direction) {}
+	protected final void reproduce(Critter offspring, int direction) {
+		if(this.energy >= Params.min_reproduce_energy) {
+			offspring.energy = this.energy/2;
+			this.energy += this.energy %2;
+			this.energy /= 2;
+			//^^Dividing up the energy between the baby and the parent
+			offspring.location = new Point(this.location.getX(), this.location.getY());
+			offspring.location.update(direction);//giving the baby a location
+			CritterWorld.babies.put((Critter) offspring, offspring.location);//adding baby to CritterWorld baby list
+		}
+	}
 
 	public abstract void doTimeStep();
 	public abstract boolean fight(String oponent);
 	
 	
-	public static void worldTimeStep() {}
+	public static void worldTimeStep() {
+		CritterWorld.doTimeStep();//does all time steps
+		for(Critter i : CritterWorld.critterMap.keySet()) {
+			i.energy -= Params.rest_energy_cost;
+		}
+		handleInteractions();//handles fights
+		CritterWorld.removeDead();//removes all dead from the World
+		CritterWorld.makeAlgae();//adds algae to board
+		CritterWorld.addBabies();
+		for(Critter i: CritterWorld.critterMap.keySet()) {
+			i.hasMoved = false;
+		}
+	}
 	
-	public static void displayWorld() {}
+	public static void displayWorld() {
+		CritterWorld.printWorld();
+	}
 	
 	/* create and initialize a Critter subclass
 	 * critter_class_name must be the name of a concrete subclass of Critter, if not
 	 * an InvalidCritterException must be thrown
 	 */
-	public static void makeCritter(String critter_class_name) throws InvalidCritterException {}
+	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
+		Critter critter = null;
+		try{
+			Class<?> c = Class.forName("assignment4."+critter_class_name);
+			Constructor<?> newCon = c.getConstructor();
+			Object obj = newCon.newInstance();
+			critter = (Critter)obj;
+			//^^This is to get an object of the class requested
+		}catch(Exception e){
+			throw new InvalidCritterException(critter_class_name);
+		}
+		addCritter(critter);//send the critter to addCritter to be added to World
+	}
+	
+	/**
+	 * Adds critter to CritterWorld
+	 * @param critter to be added
+	 * **Make Public For Testing Purposes
+	 */
+	private static void addCritter(Critter critter) {
+		if(critter != null) {
+			critter.location = CritterWorld.getRandomLocation();//returns a random location
+			CritterWorld.addCritter(critter, critter.location);//adds the critter to CritterWorld
+			critter.energy = Params.start_energy;//sets that critter's energy to startEnergy
+		}
+	}
 	
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		return null;
@@ -147,7 +216,53 @@ public abstract class Critter {
 	 * Clear the world of all critters, dead and alive
 	 */
 	public static void clearWorld() {
+		CritterWorld.cleanWorld();
 	}
 	
+	/**
+	 * Cycles through all the critters
+	 * checking to see if any are in the same location
+	 * if they are, this calls their fight methods to see if they will fight or attempt to move
+	 * if they fight, a roll is done between 0 and the critters energy
+	 * the critter with the higher roll gains 1/2 the energy from the loser
+	 * the loser dies and loses its energy
+	 */
+ 	private static void handleInteractions(){
+		boolean aFight;
+		boolean bFight;
+		int aRoll = 0;
+		int bRoll = 0;
+		for(Critter a : CritterWorld.critterMap.keySet()) {
+			for(Critter b : CritterWorld.critterMap.keySet()) {
+				if(!a.equals(b)) {
+					if(a.location.equals(b.location)) {
+						aFight = a.fight(b.toString());
+						bFight = b.fight(a.toString());
+						if(aFight){
+							aRoll = Critter.getRandomInt(a.getEnergy());
+						}else{
+							aRoll = 0;
+						}
+						if(bFight){
+							bRoll = Critter.getRandomInt(b.getEnergy());
+						}else{
+							bRoll = 0;
+						}
+						if (a.location.equals(b.location)) {	// neither moved
+							if (aRoll > bRoll) {
+								a.energy += b.energy / 2;
+								b.energy = 0;
+								b.location = new Point(-1, -1);
+							} else {
+								b.energy += a.energy / 2;
+								a.energy = 0;
+								a.location = new Point(-1, -1);
+							} 
+						}
+					}
+				}
+			}
+		}
+	}	
 	
 }
