@@ -93,7 +93,8 @@ public class Critter1 extends Critter{
 //			else{
 //				return CritterWorld.tryMove(this,dir, 1);
 //			}
-//		}		
+//		}
+		return false;
 	}
 
 	private boolean willWakeUp(){
