@@ -30,6 +30,16 @@ public class CritterWorld {
 		return false;
 	}
 	
+	public static Critter getCritter(Point p){
+		for(Critter i: critterMap.keySet()){
+			if(critterMap.get(i).equals(p)){
+				return i;
+			}
+		}
+		
+		return null;
+	}
+	
 	public static boolean tryMove(Critter c, int direction, int distance) {
 		Point p1 = critterMap.get(c); 
 		for(int i = 0; i < distance; i++) {

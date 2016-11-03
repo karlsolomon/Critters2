@@ -46,7 +46,114 @@ public abstract class Critter {
 		myPackage = Critter.class.getPackage().toString().split(" ")[1];
 	}
 	
-	protected String look(int direction, boolean steps) {return "";}
+	protected String look(int direction, boolean steps) {
+		energy -= Params.look_energy_cost;
+		int x = this.location.getX();
+		int y = this.location.getY();
+		String s = null;
+		if(!steps){
+			if(direction == 0){
+				Point pt = new Point(x+1,y);
+				if(CritterWorld.isOccupied(pt) ){
+					s = CritterWorld.getCritter(pt).toString();
+				}
+			}
+			else if(direction == 1){
+				Point pt = new Point(x+1,y-1);
+				if(CritterWorld.isOccupied(pt) ){
+					s = CritterWorld.getCritter(pt).toString();
+				}
+			}
+			else if(direction == 2){
+				Point pt = new Point(x,y-1);
+				if(CritterWorld.isOccupied(pt) ){
+					s = CritterWorld.getCritter(pt).toString();
+				}
+			}
+			else if(direction == 3){
+				Point pt = new Point(x-1,y-1);
+				if(CritterWorld.isOccupied(pt) ){
+					s = CritterWorld.getCritter(pt).toString();
+				}
+			}
+			else if(direction == 4){
+				Point pt = new Point(x-1,y);
+				if(CritterWorld.isOccupied(pt) ){
+					s = CritterWorld.getCritter(pt).toString();
+				}
+			}
+			else if(direction == 5){
+				Point pt = new Point(x-1,y+1);
+				if(CritterWorld.isOccupied(pt) ){
+					s = CritterWorld.getCritter(pt).toString();
+				}
+			}
+			else if(direction == 6){
+				Point pt = new Point(x,y+1);
+				if(CritterWorld.isOccupied(pt) ){
+					s = CritterWorld.getCritter(pt).toString();
+				}
+			}
+			else if(direction == 7){
+				Point pt = new Point(x+1,y+1);
+				if(CritterWorld.isOccupied(pt) ){
+					s = CritterWorld.getCritter(pt).toString();
+				}
+			}
+			
+		}else{
+			if(direction == 0){
+				Point pt = new Point(x+2,y);
+				if(CritterWorld.isOccupied(pt) ){
+					s = CritterWorld.getCritter(pt).toString();
+				}
+			}
+			else if(direction == 1){
+				Point pt = new Point(x+2,y-2);
+				if(CritterWorld.isOccupied(pt) ){
+					s = CritterWorld.getCritter(pt).toString();
+				}
+			}
+			else if(direction == 2){
+				Point pt = new Point(x,y-2);
+				if(CritterWorld.isOccupied(pt) ){
+					s = CritterWorld.getCritter(pt).toString();
+				}
+			}
+			else if(direction == 3){
+				Point pt = new Point(x-2,y-2);
+				if(CritterWorld.isOccupied(pt) ){
+					s = CritterWorld.getCritter(pt).toString();
+				}
+			}
+			else if(direction == 4){
+				Point pt = new Point(x-2,y);
+				if(CritterWorld.isOccupied(pt) ){
+					s = CritterWorld.getCritter(pt).toString();
+				}
+			}
+			else if(direction == 5){
+				Point pt = new Point(x-2,y+2);
+				if(CritterWorld.isOccupied(pt) ){
+					s = CritterWorld.getCritter(pt).toString();
+				}
+			}
+			else if(direction == 6){
+				Point pt = new Point(x,y+2);
+				if(CritterWorld.isOccupied(pt) ){
+					s = CritterWorld.getCritter(pt).toString();
+				}
+			}
+			else if(direction == 7){
+				Point pt = new Point(x+2,y+2);
+				if(CritterWorld.isOccupied(pt) ){
+					s = CritterWorld.getCritter(pt).toString();
+				}
+			}
+		}
+		
+		return s;
+	}
 	
 	/* rest is unchanged from Project 4 */
 	

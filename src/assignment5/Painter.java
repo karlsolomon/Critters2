@@ -24,7 +24,14 @@ public class Painter {
 	static Shape getIcon(int shapeIndex) {
 		Shape s = null;
 		int size = 100;
-		
+		/**
+		 * Cases:			| Shapes:	| Colors:
+		 * Case 0: Algae	| circle	| green
+		 * Case 1: Critter1	| square 	| blue
+		 * Case 2: Critter2	| triangle	| red
+		 * Case 3: Critter3	| star		| orange
+		 * Case 4: Critter4	| diamond	| black
+		 */
 		switch(shapeIndex) {
 		case 0: s = new Rectangle(size, size); 
 			s.setFill(javafx.scene.paint.Color.RED); break;
@@ -44,6 +51,10 @@ public class Painter {
 		for (int i = 0; i <= 1; i++) {
 			Shape s = getIcon(i);	// convert the index to an icon.
 			Main.grid.add(s, i, i); // add the shape to the grid.
+		}
+		
+		for(Critter i : CritterWorld.critterMap.keySet()){
+			
 		}
 		
 	}
