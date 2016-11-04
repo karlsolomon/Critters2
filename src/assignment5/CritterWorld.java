@@ -32,9 +32,9 @@ public class CritterWorld {
 	}
 	
 	public static Critter getCritter(Point p){
-		for(Critter i: critterMap.keySet()){
-			if(critterMap.get(i).equals(p)){
-				return i;
+		for(Map.Entry<Critter, Point> i : critterMap.entrySet()){
+			if(i.getValue().equals(p)){
+				return i.getKey();
 			}
 		}
 		
@@ -79,11 +79,13 @@ public class CritterWorld {
 	}
 	
 	public static void doTimeStep(){
-		updatedCritterMap = critterMap;
+		
+		updatedCritterMap.putAll(critterMap);
 		for(Critter i : updatedCritterMap.keySet()){
 			i.doTimeStep();
 		}
 		critterMap = updatedCritterMap;
+		updatedCritterMap = new HashMap<>();
 	}
 	/**
 	 * Get random location on map to put newly generated Critter via Make Critter

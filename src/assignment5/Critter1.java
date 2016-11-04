@@ -69,7 +69,7 @@ public class Critter1 extends Critter{
 	/**
 	 * If the cat is woken up, it will fight
 	 * else
-	 * if the cat is pregnant, itll try to avoid fighting
+	 * if the cat is pregnant, it'll try to avoid fighting
 	 * but if not pregnant, it will just fight
 	 * @param opponent is the toString of the opponent, so if there are special interactions, you can code them
 	 * @return if the critter will fight

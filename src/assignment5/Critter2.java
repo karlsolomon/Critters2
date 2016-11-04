@@ -15,12 +15,8 @@ public class Critter2 extends Critter{
 	private static final int sleeping = 8;// 8/24 chance the critter is sleeping
 	private static final int active = 3 + sleeping;// 3/24 chance that the critter is active
 	private static final int searchingForFood = 3 + active;// 3/24 chance the critter is searching for food
-	private static final int otherwise = 10 + searchingForFood;// 10/24 chance the critter is doig otherwise
-	
 	private int dir;// direction the critter will move
 	private int[] genes = new int[8];//genes
-	private boolean isAwake;//if the critter is awake
-	
 	/**
 	 * Constructor
 	 */
@@ -28,7 +24,6 @@ public class Critter2 extends Critter{
 		for(int i = 0; i < 8; i++){
 			genes[i] = Critter.getRandomInt(8);
 		}
-		isAwake = true;
 		dir = Critter.getRandomInt(8);
 	}
 
@@ -66,19 +61,15 @@ public class Critter2 extends Critter{
 	public void doTimeStep() {
 		int num = Critter.getRandomInt(24);
 		if(num < sleeping){
-			isAwake = false;
 		}
 		else if(num < active){
-			isAwake = true;
 			run(dir);
 		}
 		else if(num < searchingForFood){
-			isAwake = true;
 			walk(dir);
 			dir = Critter.getRandomInt(8);
 		}
 		else{
-			isAwake = true;
 			walk(dir);
 		}
 		if(getEnergy() > (8*Params.min_reproduce_energy)){

@@ -1,8 +1,5 @@
 package assignment5;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -25,7 +22,9 @@ public class Controller {
 	public ChoiceBox<String> makeCritter;
 	public ChoiceBox<String> statsCritter;
 	
-	
+	public void getClassNames(){
+		
+	}
 	
 	
 	public void makeButtonClicked() {
