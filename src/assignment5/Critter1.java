@@ -36,6 +36,9 @@ public class Critter1 extends Critter{
 
 	@Override
 	public void doTimeStep() {
+		boolean foundW = false;
+		boolean foundR = false;
+		int dirOfFood = Critter.getRandomInt(8);
 		if(!isAwake){//Is the cat asleep?
 			isAwake = willWakeUp();//Will it wake up?
 			if(isAwake){//Wakes up and gets new direction from genes
@@ -45,9 +48,38 @@ public class Critter1 extends Critter{
 		if(isAwake){//Cat either is awake or just woke up
 			int num = Critter.getRandomInt(awake);
 			if(num < lookingForFood){
-				//cat will look for food in random directions
-				walk(dir);
-				dir = Critter.getRandomInt(8);
+				int i = 0;
+				//searches in a circle around it for algae, first 1 spot then 2 spots
+				while(!foundW || i < 8){
+					String findFood = look(i,false);
+					if(findFood.equals("@")){
+						foundW = true;
+						dirOfFood = i;
+					}else{
+						i++;
+					}
+				}
+				i = 0;
+				while(!foundW && !foundR && i < 8){
+					String findFood = look(i,true);
+					if(findFood.equals("@")){
+						foundR = true;
+						dirOfFood = i;
+					}else{
+						i++;
+					}
+				}
+				if(foundW){
+					walk(dirOfFood);
+				}
+				else if(foundR){
+					run(dirOfFood);
+				}else{
+					walk(Critter.getRandomInt(8));
+				}
+				
+				
+				
 			}else{
 				//cat will play in a set direction
 				run(dir);
