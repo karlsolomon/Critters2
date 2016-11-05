@@ -13,7 +13,7 @@
    <children>
       <Pane prefHeight="573.0" prefWidth="909.0">
          <children>
-            <SplitPane dividerPositions="0.29797979797979796" prefHeight="573.0" prefWidth="909.0">
+            <SplitPane fx:id="splitPane" dividerPositions="0.29797979797979796" prefHeight="573.0" prefWidth="909.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
@@ -142,7 +142,7 @@
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="213.0" prefWidth="206.0">
                      <children>
-                        <Canvas fx:id="world" height="571.0" width="634.0" />
+                        <Canvas fx:id="world" height="430.0" width="508.0" />
                      </children></AnchorPane>
               </items>
             </SplitPane>

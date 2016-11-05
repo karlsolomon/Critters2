@@ -43,7 +43,7 @@ public abstract class Critter {
 
 	// Gets the package name.  This assumes that Critter and its subclasses are all in the same package.
 	static {
-		myPackage = Critter.class.getPackage().toString().split(" ")[1];
+		myPackage = Critter.class.getPackage().toString().split(" ")[1]+".";
 	}
 	
 	protected String look(int direction, boolean steps) {
@@ -234,10 +234,6 @@ public abstract class Critter {
 		}
 	}
 	
-	public static void displayWorld() {
-		CritterWorld.printWorld();
-	}
-	
 	/* create and initialize a Critter subclass
 	 * critter_class_name must be the name of a concrete subclass of Critter, if not
 	 * an InvalidCritterException must be thrown
@@ -254,6 +250,18 @@ public abstract class Critter {
 			throw new InvalidCritterException(critter_class_name);
 		}
 		addCritter(critter);//send the critter to addCritter to be added to World
+	}
+	
+	public static boolean isInstantiatable(String critter_class_name) {
+		try{
+			Class<?> c = Class.forName(myPackage + critter_class_name);
+			Constructor<?> newCon = c.getConstructor();
+			Object obj = newCon.newInstance();
+			//^^This is to get an object of the class requested
+		}catch(Exception e){
+			return false;
+		}
+		return true;
 	}
 	
 	/**

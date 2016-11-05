@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import assignment5.Critter.CritterShape;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
 /**
@@ -34,9 +35,16 @@ public final class CritterView {
 	 * Displays the Critter World
 	 */
 	public static void drawWorld(){
+		if(Controller.world == null) {
+			Controller.world = new Canvas();
+			Controller.world.layoutXProperty().set(0);
+			Controller.world.layoutYProperty().set(0);
+			Controller.world.widthProperty().set(Params.canvas_width);
+			Controller.world.heightProperty().set(Params.canvas_height);
+		}
 	    GraphicsContext gc = Controller.world.getGraphicsContext2D();
-	    for(Critter c : CritterWorld.updatedCritterMap.keySet()) {
-	    	Draw(gc, c, CritterWorld.updatedCritterMap.get(c));
+	    for(Critter c : CritterWorld.critterMap.keySet()) {
+	    	Draw(gc, c, CritterWorld.critterMap.get(c));
 	    }
 	}
 	
