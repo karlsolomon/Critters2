@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	static GridPane grid = new GridPane();
+	public static ArrayList<String> critterList = new ArrayList<String>();
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -20,7 +21,7 @@ public class Main extends Application {
 			final String s = System.getProperty("user.dir");
 			File src = new File(s + "\\src\\assignment5");
 			File[] listOfFiles = src.listFiles();
-			ArrayList<String> critterList = new ArrayList<String>();
+			
 			for(File f : listOfFiles){
 				String fName = f.toString();
 				String name = fName.substring(fName.lastIndexOf("\\") + 1, fName.lastIndexOf("."));
@@ -31,9 +32,10 @@ public class Main extends Application {
 					}
 				}catch(Exception e){}
 			}
-//			for(String x : critterList){
-//				System.out.println(x);
-//			}
+			critterList.remove("assignment5.Critter");
+			for(String x : critterList){
+				System.out.println(x);
+			}
 			
 			
 			
