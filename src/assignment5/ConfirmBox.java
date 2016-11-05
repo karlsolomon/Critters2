@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 /**
  * Not Mine!
  * Imported from https://github.com/buckyroberts/Source-Code-from-Tutorials/tree/master/JavaFX
- *
+ * 
  */
 public class ConfirmBox {
 	
