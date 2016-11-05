@@ -42,22 +42,23 @@ public class Controller implements Initializable{
 	
 	@FXML
 	public Canvas world;
-	
-	public void getClassNames() {
 		
-	}
-	
-	
-	
 	public void makeButtonClicked() {
 		
-		String critterType = makeCritter.getAccessibleText();
+		String critterType = makeCritter.getValue();
 		String makeNum = makeNumber.getText();
 		System.out.println("Make " + makeNum + " " + critterType);
+		
+		try{
+			Critter.makeCritter(critterType);
+		}catch(Exception e){
+			
+		}
+		
 	}
 	
 	public void statsButtonClicked(){
-		String critterType = statsCritter.getAccessibleText();
+		String critterType = statsCritter.getValue();
 		System.out.println("Run stats on " + critterType);
 	}
 	
@@ -68,6 +69,8 @@ public class Controller implements Initializable{
 	
 	public void seedButtonClicked(){
 		System.out.println("Set Seed to " + seedNumber.getText());
+		Long seedNum = Long.parseLong(seedNumber.getText());
+		Critter.setSeed(seedNum);
 	}
 	
 	public void quitButtonClicked(){
