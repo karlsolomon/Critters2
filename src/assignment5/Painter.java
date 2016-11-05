@@ -43,16 +43,4 @@ public class Painter {
 		s.setStroke(javafx.scene.paint.Color.BLUE); // outline
 		return s;
 	}
-	
-	/*
-	 * Paints the shape on a grid.
-	 */
-	public static void paint() {
-		
-		
-		for(Critter i : CritterWorld.critterMap.keySet()){
-			
-		}
-		
-	}
 }

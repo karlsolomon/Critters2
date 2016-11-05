@@ -47,7 +47,7 @@ public class Main extends Application {
 		try {
 			root = FXMLLoader.load(getClass().getResource("MainController.fxml"));
 			primaryStage.setTitle("Hello World");
-			primaryStage.setScene(new Scene(root, 900,900));
+			primaryStage.setScene(new Scene(root, Params.canvas_width,Params.canvas_height));
 
 			primaryStage.show();
 		} catch (IOException e) {

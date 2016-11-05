@@ -25,9 +25,7 @@ public class Controller {
 	public Button buttonSeed;
 	public Button buttonQuit;
 	public Button buttonShow;
-	public Button buttonLook;
-	
-	
+	public Button buttonLook;	
 	public TextField makeNumber;
 	public TextField stepNumber;
 	public TextField seedNumber;
@@ -36,13 +34,15 @@ public class Controller {
 	public ChoiceBox<String> statsCritter;
 	
 	@FXML
-	public Canvas world;
+	public static Canvas world;
 	
 	public void getClassNames() {
 		
 	}
 	
-	
+	public void initialize(){
+		
+	}
 	
 	public void makeButtonClicked() {
 		String critterType = makeCritter.getAccessibleText();
@@ -84,17 +84,7 @@ public class Controller {
 	}
 	
 	private static void drawShapes(GraphicsContext gc){
-		int max = CritterView.maxDimensionOfShape;
-		ArrayList<CritterView> critters = new ArrayList<>();		 	
-	        critters.add(new CritterView(CritterShape.CIRCLE, Color.ORANGE, Point.getrandomPoint(max, 400)));
-	        critters.add(new CritterView(CritterShape.SQUARE, Color.BLUE, Point.getrandomPoint(max, 400)));
-	        critters.add(new CritterView(CritterShape.TRIANGLE, Color.BLACK, Point.getrandomPoint(max, 400)));
-	        critters.add(new CritterView(CritterShape.DIAMOND, Color.RED, Point.getrandomPoint(max, 400)));
-	        critters.add(new CritterView(CritterShape.STAR, Color.GREEN, Point.getrandomPoint(max, 400)));
-	        for(CritterView c : critters) {
-	        	gc.setFill(c.getColor());
-	        	gc.fillPolygon(c.getXCoords(), c.getYCoords(), c.getXCoords().length);
-	        }
+		CritterView.drawWorld();
 	}
 
 	

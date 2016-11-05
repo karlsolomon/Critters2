@@ -1,93 +1,134 @@
 package assignment5;
 
 import java.util.ArrayList;
-
-import com.google.common.reflect.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import assignment5.Critter.CritterShape;
-import javafx.scene.paint.*;
-import javafx.scene.shape.*;
+import javafx.scene.canvas.GraphicsContext;
 
-public class CritterView {
-	public static int maxDimensionOfShape = 10;
-	private CritterShape shape;
-	private Color color;
-	Point p;
-	double[] xCoords;
-	double[] yCoords;
-	int size;
-	
-	
-	public CritterView(CritterShape shape, Color color, Point point) {
-		this.shape = shape;
-		this.color = color;
-		this.p = point;
-		makeFxShape();		
+/**
+ * Display World Class for Critter2. Represents the view component for each critter
+ * @author KSolomon
+ *
+ */
+public final class CritterView {
+	/**
+	 * Draws an individual critter
+	 * @param gc
+	 * @param c
+	 * @param p
+	 */
+	private static void Draw(GraphicsContext gc, Critter c, Point p) {
+	    CritterShape shape = c.viewShape();
+	    double[] xPoints = getXCoords(p, getFxShape(shape)); 
+	    double[] yPoints = getYCoords(p, getFxShape(shape));
+
+	    gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+	    gc.setFill(c.viewColor());
+    	gc.fillPolygon(xPoints, yPoints, xPoints.length);
 	}
 	
 	
-	private void makeFxShape() {
+	/**
+	 * Displays the Critter World
+	 */
+	public static void drawWorld(){
+	    GraphicsContext gc = Controller.world.getGraphicsContext2D();
+	    for(Critter c : CritterWorld.updatedCritterMap.keySet()) {
+	    	Draw(gc, c, CritterWorld.updatedCritterMap.get(c));
+	    }
+	}
+	
+	private static Map<CritterShape, ArrayList<Double>> shapes = initShapes();;
+	public static Map<CritterShape, ArrayList<Double>> initShapes() {
+		Map<CritterShape, ArrayList<Double>> shapes = new HashMap<CritterShape, ArrayList<Double>>();
+		
+		for(CritterShape shape : Critter.CritterShape.values()) {
+			shapes.put(shape, getFxShape(shape));
+		}
+		return shapes;
+	}
+	
+	/**
+	 * Returns array of points for shape
+	 * @param shape
+	 * @return
+	 */
+	private static ArrayList<Double> getFxShape(CritterShape shape) {
 		if(shape.equals(CritterShape.CIRCLE)) {
-			setXYCoords(equilateralPoints(360, 0, maxDimensionOfShape));
+			return equilateralPoints(360, 0);
 		}
 		else if (shape.equals(CritterShape.SQUARE)) {
-			setXYCoords(equilateralPoints(4, 90, maxDimensionOfShape));
+			return equilateralPoints(4, 90);
 		}
 		else if (shape.equals(CritterShape.TRIANGLE)) {
-			setXYCoords(equilateralPoints(3, 30, maxDimensionOfShape));			
+			return equilateralPoints(3, 30);			
 		}
 		else if (shape.equals(CritterShape.DIAMOND)) {
-			setXYCoords(equilateralPoints(4, 45, maxDimensionOfShape));
+			return equilateralPoints(4, 45);
 		}
 		else if (shape.equals(CritterShape.STAR)) {
+			ArrayList<Double> longer = equilateralPoints(5,90-36);
+			ArrayList<Double> shorter = equilateralPoints(5,90);
 			ArrayList<Double> points = new ArrayList<Double>();
-			double[] longer = equilateralPoints(5,90-36,maxDimensionOfShape);
-			double[] shorter = equilateralPoints(5,90,5);
-			for(int i = 0; i < longer.length/2; i ++) {
-				points.add(longer[2*i]);
-				points.add(longer[2*i + 1]);
-				points.add(shorter[2*i]);
-				points.add(shorter[2*i + 1]);
+			for(int i = 0; i < longer.size()/2; i ++) {
+				points.add(longer.get(2*i));
+				points.add(longer.get(2*i + 1));
+				points.add(shorter.get(2*i));
+				points.add(shorter.get(2*i + 1));
 			}
-			double[] allPoints = new double[longer.length *2];
-			for(int i = 0; i < points.size(); i++) {
-				allPoints[i] = points.get(i);
-			}
-			setXYCoords(allPoints);
+			return points;
 		}
+		else return null;
 	}	
 	
-	private double[] equilateralPoints(int numPoints, double deg, int distance) {
+	/**
+	 * Used to construct the original shape templates
+	 * @param numPoints
+	 * @param deg
+	 * @return
+	 */
+	private static ArrayList<Double> equilateralPoints(int numPoints, double deg) {
+		int distance = Params.bin_size/2;
 		double degreeStep = 360/numPoints;
-		double[] points = new double[numPoints*2];
+		ArrayList<Double> pts = new ArrayList<Double>();
 		for(int i = 0; i < numPoints; i++) {
-			points[2*i] = p.getX() + Math.cos(Math.toRadians(deg))*distance;
-			points[2*i+1] = p.getY() + Math.sin(Math.toRadians(deg))*distance;
+			pts.add(Math.cos(Math.toRadians(deg))*distance); // x value
+			pts.add(Math.sin(Math.toRadians(deg))*distance); // y value
 			deg += degreeStep;
 		}
-		return points;
+		return pts;
 	}
 	
-	private void setXYCoords(double[] points){
-		xCoords = new double[points.length/2];
-		yCoords = new double[points.length/2];
-		for(int i = 0; i < points.length/2; i++) {
-			xCoords[i] = points[2*i];
-			yCoords[i] = points[2*i+1];
+	/**
+	 * Returns xCoordinates of the shape of a particular critter at a given xPoint
+	 * @param p
+	 * @param allPoints
+	 * @return
+	 */
+	public static double[] getXCoords(Point p, ArrayList<Double> allPoints) {
+		double xLocation = (double) p.getX()*Params.bin_size + Params.bin_size/2;
+		double[] xPoints = new double[allPoints.size()/2];
+		for(int i = 0; i < allPoints.size()/2; i++) {
+			xPoints[i] = allPoints.get(2*i) + xLocation;
 		}
-		size = xCoords.length + yCoords.length;
+		return xPoints;
 	}
 	
-	public double[] getXCoords(){
-		return xCoords;
-	}
-	
-	public double[] getYCoords() {
-		return yCoords;
-	}
-	
-	public Color getColor() {
-		return this.color;
+	/**
+	 * Returns yCoordinates of the shape of a particular critter at a given yPoint
+	 * @param p
+	 * @param allPoints
+	 * @return
+	 */
+	public static double[] getYCoords(Point p, ArrayList<Double> allPoints) {
+		double yLocation = (double) p.getY()*Params.bin_size + Params.bin_size/2;
+		double[] yPoints = new double[allPoints.size()/2];
+		for(int i = 0; i < allPoints.size()/2; i++) {
+			yPoints[i] = allPoints.get(2*i+1) + yLocation;
+		}
+		return yPoints;
 	}
 	
 }
