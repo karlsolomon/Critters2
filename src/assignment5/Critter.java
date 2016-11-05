@@ -55,6 +55,14 @@ public abstract class Critter {
 	public static int getRandomInt(int max) {
 		return rand.nextInt(max);
 	}
+	public static int getRandomIntMinMax(int min, int max) {
+		if(max <= 0) return 0;
+		int num;
+		do {
+			num = rand.nextInt(max);
+		} while(num < min);
+		return num;
+	}
 	
 	public static void setSeed(long new_seed) {
 		rand = new java.util.Random(new_seed);

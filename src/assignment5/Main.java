@@ -1,33 +1,30 @@
 package assignment5;
 	
+import java.io.IOException;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-	static GridPane grid = new GridPane();
-
-	@Override
-	public void start(Stage primaryStage) {
-		try {			
-
-			grid.setGridLinesVisible(true);
-
-			Scene scene = new Scene(grid, 500, 500);
-			primaryStage.setScene(scene);
-			
+	int size = 500;
+    public static void main(String[] args) {
+        launch(args);
+    }
+ 
+    @Override
+    public void start(Stage primaryStage) {
+    	
+    	Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getResource("MainController.fxml"));
+			primaryStage.setTitle("Hello World");
+			primaryStage.setScene(new Scene(root, 900,900));
 			primaryStage.show();
-			
-			// Paints the icons.
-			Painter.paint();
-			
-		} catch(Exception e) {
-			e.printStackTrace();		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	}
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
+    }
 }

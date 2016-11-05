@@ -59,4 +59,9 @@ public class Point {
 			return false;
 		}
 	}
+	
+	public static Point getrandomPoint(int min, int max){
+		Point p = new Point(Critter.getRandomIntMinMax(min,max), Critter.getRandomIntMinMax(min,max));
+		return p;
+	}
 }
