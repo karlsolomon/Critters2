@@ -11,8 +11,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class Main extends Application {
+	public static Stage stage;
 
 	static GridPane grid = new GridPane();
 	public static ArrayList<String> critterList = new ArrayList<String>();
@@ -25,6 +27,7 @@ public class Main extends Application {
  
     @Override
     public void start(Stage primaryStage) {
+    	stage = primaryStage;
     	final String s = System.getProperty("user.dir");
 		File src = new File(s + "\\src\\assignment5");
 		File[] listOfFiles = src.listFiles();
@@ -54,5 +57,10 @@ public class Main extends Application {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
+    }
+    
+    public void close(){
+    	
     }
 }

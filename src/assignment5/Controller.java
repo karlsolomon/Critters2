@@ -93,7 +93,15 @@ public class Controller implements Initializable{
 	}
 	
 	public void quitButtonClicked(){
-		System.out.println("Clicked the quit Button!");		
+		System.out.println("Clicked the quit Button!");
+		closeProgram();
+}
+		
+	private void closeProgram(){
+		Boolean answer = ConfirmBox.display("Quit Critters", "Are you sure you want to quit?");
+		if(answer) {
+			Main.stage.close();
+		}
 	}
 	
 	public void showButtonClicked(){
