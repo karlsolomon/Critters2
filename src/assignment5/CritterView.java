@@ -2,7 +2,7 @@ package assignment5;
 
 import java.util.ArrayList;
 
-import com.google.common.reflect.*;
+//import com.google.common.reflect.*;
 
 import assignment5.Critter.CritterShape;
 import javafx.scene.paint.*;

@@ -35,11 +35,11 @@ public class Main extends Application {
 			try{
 				Class<?> c = Class.forName("assignment5."+name);
 				if(assignment5.Critter.class.isAssignableFrom(c)){
-					critterList.add("assignment5."+name);
+					critterList.add(name);
 				}
 			}catch(Exception e){}
 		}
-		critterList.remove("assignment5.Critter");
+		critterList.remove("Critter");
 		for(String x : critterList){
 			System.out.println(x);
 		}
