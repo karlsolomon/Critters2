@@ -30,12 +30,15 @@ public class Critter1 extends Critter{
 	
 	@Override
 	public CritterShape viewShape() {
-		// TODO Auto-generated method stub
-		return null;
+		return CritterShape.SQUARE;
 	}
+	public javafx.scene.paint.Color viewColor() { return javafx.scene.paint.Color.BLUE; }
 
 	@Override
 	public void doTimeStep() {
+		boolean foundW = false;
+		boolean foundR = false;
+		int dirOfFood = Critter.getRandomInt(8);
 		if(!isAwake){//Is the cat asleep?
 			isAwake = willWakeUp();//Will it wake up?
 			if(isAwake){//Wakes up and gets new direction from genes
@@ -45,9 +48,38 @@ public class Critter1 extends Critter{
 		if(isAwake){//Cat either is awake or just woke up
 			int num = Critter.getRandomInt(awake);
 			if(num < lookingForFood){
-				//cat will look for food in random directions
-				walk(dir);
-				dir = Critter.getRandomInt(8);
+				int i = 0;
+				//searches in a circle around it for algae, first 1 spot then 2 spots
+				while(!foundW || i < 8){
+					String findFood = look(i,false);
+					if(findFood.equals("@")){
+						foundW = true;
+						dirOfFood = i;
+					}else{
+						i++;
+					}
+				}
+				i = 0;
+				while(!foundW && !foundR && i < 8){
+					String findFood = look(i,true);
+					if(findFood.equals("@")){
+						foundR = true;
+						dirOfFood = i;
+					}else{
+						i++;
+					}
+				}
+				if(foundW){
+					walk(dirOfFood);
+				}
+				else if(foundR){
+					run(dirOfFood);
+				}else{
+					walk(Critter.getRandomInt(8));
+				}
+				
+				
+				
 			}else{
 				//cat will play in a set direction
 				run(dir);
@@ -69,32 +101,31 @@ public class Critter1 extends Critter{
 	/**
 	 * If the cat is woken up, it will fight
 	 * else
-	 * if the cat is pregnant, itll try to avoid fighting
+	 * if the cat is pregnant, it'll try to avoid fighting
 	 * but if not pregnant, it will just fight
 	 * @param opponent is the toString of the opponent, so if there are special interactions, you can code them
 	 * @return if the critter will fight
 	 */
 	@Override
 	public boolean fight(String opponent) {
-//		if(opponent.equals("1")){
-//			isPregnant = true;
-//			return CritterWorld.tryMove(this,dir, 1);
-//		}
-//		else if(opponent.equals("@")){
-//			return true;
-//		}
-//		else if(!isAwake){
-//			isAwake = true;
-//			return true;
-//		}else{
-//			if(!isPregnant){
-//				return true;
-//			}			
-//			else{
-//				return CritterWorld.tryMove(this,dir, 1);
-//			}
-//		}
-		return false;
+		if(opponent.equals("1")){
+			isPregnant = true;
+			return CritterWorld.tryMove(this,dir, 1);
+		}
+		else if(opponent.equals("@")){
+			return true;
+		}
+		else if(!isAwake){
+			isAwake = true;
+			return true;
+		}else{
+			if(!isPregnant){
+				return true;
+			}			
+			else{
+				return CritterWorld.tryMove(this,dir, 1);
+			}
+		}
 	}
 
 	private boolean willWakeUp(){
@@ -107,6 +138,10 @@ public class Critter1 extends Critter{
 	
 	private int getDirection(){
 		return genes[Critter.getRandomInt(8)];
+	}
+	@Override
+	public String toString(){
+		return "1";
 	}
 	
 }

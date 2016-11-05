@@ -38,7 +38,9 @@ public class Controller {
 	@FXML
 	public Canvas world;
 	
-	
+	public void getClassNames() {
+		
+	}
 	
 	
 	
