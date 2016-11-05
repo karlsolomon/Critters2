@@ -43,16 +43,16 @@ public class Main extends Application {
 			}catch(Exception e){}
 		}
 		critterList.remove("Critter");
-		for(String x : critterList){
-			System.out.println(x);
-		}
+//		for(String x : critterList){
+//			System.out.println(x);
+//		}
     	Parent root;
 		try {
 			root = FXMLLoader.load(getClass().getResource("MainController.fxml"));
-			primaryStage.setTitle("Hello World");
-			primaryStage.setScene(new Scene(root, Params.canvas_width,Params.canvas_height));
+			stage.setTitle("Hello World");
+			stage.setScene(new Scene(root, Params.canvas_width,Params.canvas_height));
 
-			primaryStage.show();
+			stage.show();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

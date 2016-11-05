@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.canvas.*?>
-<?import javafx.scene.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="573.0" prefWidth="909.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="assignment5.Controller">
+<AnchorPane prefHeight="573.0" prefWidth="909.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="assignment5.Controller">
    <children>
       <Pane prefHeight="573.0" prefWidth="909.0">
          <children>
@@ -73,6 +78,10 @@
                                     </Button>
                                     <Button fx:id="buttonQuit" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#quitButtonClicked" prefHeight="25.0" prefWidth="53.0" text="Quit" textAlignment="CENTER" textFill="#dd0e0e" />
                                     <Button fx:id="buttonStep" mnemonicParsing="false" onAction="#stepButtonClicked" text="Step" />
+                                    <Slider fx:id="worldWidth" max="400.0" min="200.0" />
+                                    <Label fx:id="widthDisplay" prefHeight="32.0" prefWidth="39.0" text="Label" />
+                                    <Label fx:id="heightDisplay" text="Label" />
+                                    <Slider fx:id="worldHeight" max="400.0" min="200.0" orientation="VERTICAL" />
                                  </children>
                               </VBox>
                            </children>
