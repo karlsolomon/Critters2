@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
@@ -35,13 +36,13 @@ public class Controller implements Initializable{
 	public Button buttonSeed;
 	public Button buttonQuit;
 	public Button buttonShow;
-	public Button buttonLook;	
 	public TextField makeNumber;
 	public TextField stepNumber;
 	public TextField seedNumber;
 	public SplitPane splitPane;
 	public Pane worldPane;
-	
+	public CheckBox steps;
+	public CheckBox continuous;
 	public ChoiceBox<String> makeCritter;
 	public ChoiceBox<String> statsCritter;
 	
@@ -52,14 +53,11 @@ public class Controller implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ObservableList<String> list = FXCollections.observableArrayList(Main.critterList);
 		makeCritter.setItems(list);
-		statsCritter.setItems(list);
 	}
 	
-	public void setWorld(int x, int y){
-		GraphicsContext gc = world.getGraphicsContext2D();
-		gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-	}
-	
+	/*
+	 * DONE
+	 */
 	public void makeButtonClicked() {
 		String critterType = makeCritter.getValue();
 		String makeNum = makeNumber.getText();
@@ -77,6 +75,9 @@ public class Controller implements Initializable{
 		System.out.println("Run stats on " + critterType);
 	}
 	
+	/*
+	 * DONE
+	 */
 	public void stepButtonClicked(){
 		String steps = stepNumber.getText();
 		System.out.println("Step " + steps + " time(s)");	
@@ -86,17 +87,26 @@ public class Controller implements Initializable{
 		}	
 	}
 	
+	/**
+	 * DONE
+	 */
 	public void seedButtonClicked(){
 		System.out.println("Set Seed to " + seedNumber.getText());
 		Long seedNum = Long.parseLong(seedNumber.getText());
 		Critter.setSeed(seedNum);
 	}
 	
+	/**
+	 * DONE
+	 */
 	public void quitButtonClicked(){
 		System.out.println("Clicked the quit Button!");
 		closeProgram();
-}
-		
+	}
+	
+	/**
+	 * DONE
+	 */
 	private void closeProgram(){
 		Boolean answer = ConfirmBox.display("Quit Critters", "Are you sure you want to quit?");
 		if(answer) {
@@ -104,18 +114,14 @@ public class Controller implements Initializable{
 		}
 	}
 	
+	/**
+	 * FIXME: drawWorld doesn't work
+	 */
 	public void showButtonClicked(){
 		System.out.println("Clicked the show Button!");
-		drawWorld();
-	}
-	
-	public void lookButtonClicked(){
-		System.out.println("Clicked the look Button!");
-	}
-
-	private static void drawWorld(){
 		CritterView.drawWorld();
 	}
+
 
 
 	
