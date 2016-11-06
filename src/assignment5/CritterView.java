@@ -24,8 +24,6 @@ public final class CritterView {
 	    CritterShape shape = c.viewShape();
 	    double[] xPoints = getXCoords(p, getFxShape(shape)); 
 	    double[] yPoints = getYCoords(p, getFxShape(shape));
-
-	    gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 	    gc.setFill(c.viewColor());
     	gc.fillPolygon(xPoints, yPoints, xPoints.length);
 	}
@@ -35,14 +33,8 @@ public final class CritterView {
 	 * Displays the Critter World
 	 */
 	public static void drawWorld(){
-		if(Controller.world == null) {
-			Controller.world = new Canvas();
-			Controller.world.layoutXProperty().set(0);
-			Controller.world.layoutYProperty().set(0);
-			Controller.world.widthProperty().set(Params.canvas_width);
-			Controller.world.heightProperty().set(Params.canvas_height);
-		}
 	    GraphicsContext gc = Controller.world.getGraphicsContext2D();
+	    gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 	    for(Critter c : CritterWorld.critterMap.keySet()) {
 	    	Draw(gc, c, CritterWorld.critterMap.get(c));
 	    }

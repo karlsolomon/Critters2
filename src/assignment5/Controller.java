@@ -2,6 +2,7 @@ package assignment5;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,9 +14,11 @@ import assignment5.Critter.CritterShape;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -32,7 +35,7 @@ public class Controller implements Initializable{
 	
 	public Button buttonMake;
 	public Button buttonStats;
-	public Button buttonStep;
+	public static Button buttonStep;
 	public Button buttonSeed;
 	public Button buttonQuit;
 	public Button buttonShow;
@@ -40,12 +43,14 @@ public class Controller implements Initializable{
 	public TextField stepNumber;
 	public TextField seedNumber;
 	public SplitPane splitPane;
-	public Pane worldPane;
+	@FXML
+	public static Pane worldPane;
 	public CheckBox steps;
 	public CheckBox continuous;
 	public ChoiceBox<String> makeCritter;
 	public ChoiceBox<String> statsCritter;
 	
+	@FXML
 	public static Canvas world;
 	
 
@@ -61,10 +66,13 @@ public class Controller implements Initializable{
 	public void makeButtonClicked() {
 		String critterType = makeCritter.getValue();
 		String makeNum = makeNumber.getText();
+		int num = Integer.parseInt(makeNum);
 		System.out.println("Make " + makeNum + " " + critterType);
 		
 		try{
-			Critter.makeCritter(critterType);
+			for(int i = 0; i < num; i++) {
+				Critter.makeCritter(critterType);
+			}
 		}catch(Exception e){
 			
 		}
@@ -92,8 +100,12 @@ public class Controller implements Initializable{
 	 */
 	public void seedButtonClicked(){
 		System.out.println("Set Seed to " + seedNumber.getText());
-		Long seedNum = Long.parseLong(seedNumber.getText());
-		Critter.setSeed(seedNum);
+		try{
+			Long seedNum = Long.parseLong(seedNumber.getText());
+			Critter.setSeed(seedNum);
+		} catch (NumberFormatException e) {
+			
+		}
 	}
 	
 	/**
@@ -118,10 +130,11 @@ public class Controller implements Initializable{
 	 * FIXME: drawWorld doesn't work
 	 */
 	public void showButtonClicked(){
+		if(world != Main.canvas)
+			world = Main.canvas;
 		System.out.println("Clicked the show Button!");
-		CritterView.drawWorld();
+	    CritterView.drawWorld();
 	}
-
 
 
 	

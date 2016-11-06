@@ -7,15 +7,22 @@ import java.util.*;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class Main extends Application {
 	public static Stage stage;
-
+	static Canvas canvas;
 	static GridPane grid = new GridPane();
 	public static ArrayList<String> critterList = new ArrayList<String>();
 
@@ -26,7 +33,7 @@ public class Main extends Application {
     }
  
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
     	stage = primaryStage;
     	final String s = System.getProperty("user.dir");
 		File src = new File(s + "\\src\\assignment5");
@@ -40,24 +47,23 @@ public class Main extends Application {
 				if(assignment5.Critter.class.isAssignableFrom(c)){
 					critterList.add(name);
 				}
-			}catch(Exception e){}
+			} catch(Exception e) {}
 		}
 		critterList.remove("Critter");
 		for(String x : critterList){
 			System.out.println(x);
 		}
-    	Parent root;
-		try {
-			root = FXMLLoader.load(getClass().getResource("MainController.fxml"));
-			primaryStage.setTitle("Hello World");
-			primaryStage.setScene(new Scene(root, Params.canvas_width,Params.canvas_height));
-
-			primaryStage.show();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
+	    primaryStage.setTitle("Drawing Operations Test");
+        Group root = new Group();
+        Parent parent = FXMLLoader.load(getClass().getResource("MainController.fxml"));
+        canvas = new Canvas(Params.canvas_width,Params.canvas_height);
+        Controller.world = canvas;
+        root.getChildren().add(parent);
+        root.getChildren().add(canvas);
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();               
+        double leftPaneWidth = 275;
+        canvas.setLayoutX(leftPaneWidth);
     }
     
     public void close(){
