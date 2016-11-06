@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
@@ -55,8 +56,8 @@ public class Controller implements Initializable{
 	public ChoiceBox<String> statsCritter;
 	public Slider worldWidth;
 	public Slider worldHeight;
-	public Label widthDisplay;
-	public Label heightDisplay;
+	public TextField widthDisplay;
+	public TextField heightDisplay;
 	
 	public static Canvas world;
 	
@@ -65,6 +66,12 @@ public class Controller implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ObservableList<String> list = FXCollections.observableArrayList(Main.critterList);
 		makeCritter.setItems(list);
+		worldWidth.setValue(Params.canvas_width);
+		worldHeight.setValue(Params.canvas_height);
+		widthDisplay.setText(new Double(Params.canvas_width).toString());
+		heightDisplay.setText(new Double(Params.canvas_height).toString());
+		widthDisplay.textProperty().bindBidirectional(worldWidth.valueProperty(), NumberFormat.getNumberInstance());
+		heightDisplay.textProperty().bindBidirectional(worldHeight.valueProperty(), NumberFormat.getNumberInstance());
 	}
 	
 	/*
@@ -148,6 +155,9 @@ public class Controller implements Initializable{
 		} catch (Exception e) {
 			
 		}
+	}
+	public void changeWorldDimensions(){
+		
 	}
 
 	
