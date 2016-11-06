@@ -12,6 +12,9 @@ import java.util.Collections;
 import java.util.ResourceBundle;
 
 import assignment5.Critter.CritterShape;
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -57,8 +60,10 @@ public class Controller implements Initializable{
 	public ChoiceBox<String> statsCritter;
 	public Slider worldWidth;
 	public Slider worldHeight;
+	public Slider speedSlider;
 	public TextField widthDisplay;
 	public TextField heightDisplay;
+	public TextField speedDisplay;
 	
 	@FXML
 	public static Canvas world;
@@ -69,12 +74,25 @@ public class Controller implements Initializable{
 		ObservableList<String> list = FXCollections.observableArrayList(Main.critterList);
 		makeCritter.setItems(list);
 		statsCritter.setItems(list);
-		worldWidth.setValue(Params.canvas_width);
-		worldHeight.setValue(Params.canvas_height);
-		widthDisplay.setText(new Double(Params.canvas_width).toString());
-		heightDisplay.setText(new Double(Params.canvas_height).toString());
+		
+		worldWidth.setValue(Params.world_width);
+		worldHeight.setValue(Params.world_height);
+		worldWidth.valueProperty().addListener((obs, oldval, newVal) -> worldWidth.setValue(newVal.intValue()));
+		worldHeight.valueProperty().addListener((obs, oldval, newVal) -> worldHeight.setValue(newVal.intValue()));
+		speedSlider.valueProperty().addListener((obs, oldval, newVal) -> speedSlider.setValue(newVal.intValue()));
+				
+		widthDisplay.setText(new Integer(Params.world_width).toString());
+		heightDisplay.setText(new Integer(Params.world_height).toString());
 		widthDisplay.textProperty().bindBidirectional(worldWidth.valueProperty(), NumberFormat.getNumberInstance());
 		heightDisplay.textProperty().bindBidirectional(worldHeight.valueProperty(), NumberFormat.getNumberInstance());
+		
+		speedSlider.setValue(Params.annimation_speed);
+		speedDisplay.setText(new Integer(Params.annimation_speed).toString());
+		speedDisplay.textProperty().bindBidirectional(speedSlider.valueProperty(), NumberFormat.getNumberInstance());
+		
+//		speedLabel.setText(Math.round(speedSlider.getValue()) + "");
+//		speedLabel.textProperty().bind(Bindings.format("%d",speedSlider.valueProperty().intValue()));
+		
 	}
 	
 	/*

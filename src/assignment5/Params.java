@@ -14,6 +14,7 @@ public class Params {
 	public static int photosynthesis_energy_amount = 1;
 	public static int start_energy = 100;
 	public static int look_energy_cost = 1;
+	public static int annimation_speed = 1;
 
 	public static void setWorldParams(double width, double height) {
 		world_width = width;
