@@ -55,9 +55,10 @@
             <TextField fx:id="heightDisplay" layoutX="13.0" layoutY="324.0" prefWidth="80.0" />
             <Label layoutX="15.0" layoutY="14.0" text="World Width" />
             <Label layoutX="17.0" layoutY="187.0" text="World Height" />
-            <Slider layoutX="11.0" layoutY="436.0" max="20.0" min="1.0" prefWidth="80.0" />
-            <Label layoutX="33.0" layoutY="416.0" text="Speed" />
-            <Label layoutX="37.0" layoutY="453.0" text="Label" />
+            <Slider layoutX="11.0" layoutY="416.0" max="20.0" min="1.0" prefWidth="80.0" />
+            <Label layoutX="33.0" layoutY="396.0" text="Speed" />
+            <Label layoutX="37.0" layoutY="433.0" text="Label" />
+            <Button fx:id="buttonShow" layoutX="23.0" layoutY="460.0" mnemonicParsing="false" onAction="#showButtonClicked" text="Show" />
          </children>
       </AnchorPane>
    </left>
