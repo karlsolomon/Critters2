@@ -56,7 +56,7 @@ public class Main extends Application {
 		}
 	    primaryStage.setTitle("Drawing Operations Test");
         Group root = new Group();
-        Parent parent = FXMLLoader.load(getClass().getResource("MainController.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("IDK.fxml"));
         canvas = new Canvas(Params.canvas_width,Params.canvas_height);
         Controller.world = canvas;
         root.getChildren().add(parent);
