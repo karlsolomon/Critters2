@@ -68,6 +68,7 @@ public class Controller implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ObservableList<String> list = FXCollections.observableArrayList(Main.critterList);
 		makeCritter.setItems(list);
+		statsCritter.setItems(list);
 		worldWidth.setValue(Params.canvas_width);
 		worldHeight.setValue(Params.canvas_height);
 		widthDisplay.setText(new Double(Params.canvas_width).toString());

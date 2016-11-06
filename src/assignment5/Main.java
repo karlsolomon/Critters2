@@ -35,6 +35,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
     	stage = primaryStage;
+    	stage.setResizable(false);
     	final String s = System.getProperty("user.dir");
 		File src = new File(s + "\\src\\assignment5");
 		File[] listOfFiles = src.listFiles();
