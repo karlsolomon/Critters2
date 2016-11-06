@@ -64,6 +64,7 @@ public class Main extends Application {
         primaryStage.show();               
         double leftPaneWidth = 275;
         canvas.setLayoutX(leftPaneWidth);
+
     }
     
     public void close(){

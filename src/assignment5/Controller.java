@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
@@ -25,11 +26,14 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class Controller implements Initializable{
 	
@@ -39,6 +43,8 @@ public class Controller implements Initializable{
 	public Button buttonSeed;
 	public Button buttonQuit;
 	public Button buttonShow;
+	public Button startButton;
+	public Button quitButton;
 	public TextField makeNumber;
 	public TextField stepNumber;
 	public TextField seedNumber;
@@ -49,6 +55,10 @@ public class Controller implements Initializable{
 	public CheckBox continuous;
 	public ChoiceBox<String> makeCritter;
 	public ChoiceBox<String> statsCritter;
+	public Slider worldWidth;
+	public Slider worldHeight;
+	public TextField widthDisplay;
+	public TextField heightDisplay;
 	
 	@FXML
 	public static Canvas world;
@@ -58,6 +68,12 @@ public class Controller implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ObservableList<String> list = FXCollections.observableArrayList(Main.critterList);
 		makeCritter.setItems(list);
+		worldWidth.setValue(Params.canvas_width);
+		worldHeight.setValue(Params.canvas_height);
+		widthDisplay.setText(new Double(Params.canvas_width).toString());
+		heightDisplay.setText(new Double(Params.canvas_height).toString());
+		widthDisplay.textProperty().bindBidirectional(worldWidth.valueProperty(), NumberFormat.getNumberInstance());
+		heightDisplay.textProperty().bindBidirectional(worldHeight.valueProperty(), NumberFormat.getNumberInstance());
 	}
 	
 	/*
@@ -100,11 +116,13 @@ public class Controller implements Initializable{
 	 */
 	public void seedButtonClicked(){
 		System.out.println("Set Seed to " + seedNumber.getText());
-		try{
+
+		try {
 			Long seedNum = Long.parseLong(seedNumber.getText());
 			Critter.setSeed(seedNum);
 		} catch (NumberFormatException e) {
-			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -136,6 +154,20 @@ public class Controller implements Initializable{
 	    CritterView.drawWorld();
 	}
 
+
+	public void startButton(){
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("MainController.fxml"));
+			Main.stage.setTitle("Hello World");
+			Main.stage.setScene(new Scene(root, Params.canvas_width,Params.canvas_height));
+			Main.stage.show();
+		} catch (Exception e) {
+			
+		}
+	}
+	public void changeWorldDimensions(){
+		
+	}
 
 	
 }
