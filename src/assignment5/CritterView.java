@@ -33,7 +33,7 @@ public final class CritterView {
 		gc.setStroke(Color.BLACK);
 		gc.setLineWidth(1);
 		double x1 = 0;
-		double y1 = 0;
+		double y1 = 20;
 		double y2 = Params.canvas_height;
 		
 		for(int i = 0; i < Params.canvas_width; i++) {

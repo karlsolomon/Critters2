@@ -46,7 +46,7 @@ public class Controller implements Initializable{
 	public Button startButton;
 	public Button quitButton;
 	public TextField makeNumber;
-	public TextField stepNumber;
+	public static TextField stepNumber;
 	public TextField seedNumber;
 	public SplitPane splitPane;
 	@FXML
@@ -103,12 +103,19 @@ public class Controller implements Initializable{
 	 * DONE
 	 */
 	public void stepButtonClicked(){
-		String steps = stepNumber.getText();
+		String steps;
+		try{
+			 steps = stepNumber.getText();
+		}
+		catch (Exception e) {
+			steps = "1";
+		}
 		System.out.println("Step " + steps + " time(s)");	
-		int numSteps = Integer.parseInt(stepNumber.getText());
+		int numSteps = Integer.parseInt(steps);
 		for(int i = 0; i < numSteps ; i++) {
 			CritterWorld.doTimeStep();
 		}	
+		showButtonClicked();
 	}
 	
 	/**
