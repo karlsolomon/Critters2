@@ -8,8 +8,8 @@ public class CritterWorld {
 	public static Map<Critter, Point> critterMap = new HashMap<Critter, Point>();	//official record of Critters and their location
 	public static Map<Critter, Point> updatedCritterMap = new HashMap<Critter, Point>();
 	public static Map<Critter, Point> babies = new HashMap<>();
-	private static int width = Params.world_width;
-	private static int height = Params.world_height;
+	private static int width = Params.world_width.intValue();
+	private static int height = Params.world_height.intValue();
  
 	public static void addCritter(Critter c, Point p){
 		critterMap.put(c, p);

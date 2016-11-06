@@ -8,6 +8,7 @@ import java.util.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -57,14 +59,26 @@ public class Main extends Application {
 	    primaryStage.setTitle("Drawing Operations Test");
         Group root = new Group();
         Parent parent = FXMLLoader.load(getClass().getResource("IDK.fxml"));
-        canvas = new Canvas(Params.canvas_width,Params.canvas_height);
-        Controller.world = canvas;
+
         root.getChildren().add(parent);
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();    
+        
+
+        double height = primaryStage.getHeight();
+        double width = primaryStage.getWidth();
+        double leftMargin = 110;
+        double rightMargin = 20;
+        double bottomMargin = 130;
+        double topMargin = 35;
+        Params.setCanvasParams(width - (leftMargin + rightMargin), height - (topMargin + bottomMargin));
+        Params.setWorldParams(50, 50);
+        canvas = new Canvas(Params.canvas_width,Params.canvas_height);
+        canvas.setLayoutX(leftMargin);
+        canvas.setLayoutY(topMargin);
+        Controller.world = canvas;
         root.getChildren().add(canvas);
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();               
-        double leftPaneWidth = 275;
-        canvas.setLayoutX(leftPaneWidth);
 
     }
     

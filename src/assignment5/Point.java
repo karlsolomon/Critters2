@@ -33,9 +33,9 @@ public class Point {
 	 * @param direction direction of movement in one of 8 directions: 2 vertical, 2 lateral, 4 diagonal
 	 */
 	public void update(int direction) {
-		if(direction > 4) this.y = (this.y + 1) % Params.world_height;
+		if(direction > 4) this.y = (this.y + 1) % Params.world_height.intValue();
 		else if (direction < 4 && direction > 0 ) this.y--;
-		if (direction == 7 || direction < 2) this.x = (this.x + 1) % Params.world_width;
+		if (direction == 7 || direction < 2) this.x = (this.x + 1) % Params.world_width.intValue();
 		else if (direction < 6 && direction > 2) this.x --;
 		if(this.x < 0){
 			this.x += Params.world_width;
