@@ -77,12 +77,21 @@ public class Controller implements Initializable{
 		
 		worldWidth.setValue(Params.world_width);
 		worldHeight.setValue(Params.world_height);
-		worldWidth.valueProperty().addListener((obs, oldval, newVal) -> worldWidth.setValue(newVal.intValue()));
-		worldHeight.valueProperty().addListener((obs, oldval, newVal) -> worldHeight.setValue(newVal.intValue()));
+		worldWidth.valueProperty().addListener((obs, oldval, newVal) -> {
+			worldWidth.setValue(newVal.intValue());
+			Params.world_width = newVal.doubleValue();
+			Params.setBin();
+			
+		});
+		worldHeight.valueProperty().addListener((obs, oldval, newVal) -> {
+			worldHeight.setValue(newVal.intValue());
+			Params.world_height = newVal.doubleValue();
+			Params.setBin();
+		});
 		speedSlider.valueProperty().addListener((obs, oldval, newVal) -> speedSlider.setValue(newVal.intValue()));
 				
-		widthDisplay.setText(new Integer(Params.world_width).toString());
-		heightDisplay.setText(new Integer(Params.world_height).toString());
+		widthDisplay.setText(new Integer(Params.world_width.intValue()).toString());
+		heightDisplay.setText(new Integer(Params.world_height.intValue()).toString());
 		widthDisplay.textProperty().bindBidirectional(worldWidth.valueProperty(), NumberFormat.getNumberInstance());
 		heightDisplay.textProperty().bindBidirectional(worldHeight.valueProperty(), NumberFormat.getNumberInstance());
 		

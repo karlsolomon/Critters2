@@ -26,7 +26,7 @@ public class Params {
 		canvas_height = height;
 	}
 	
-	private static void setBin() {		
+	public static void setBin() {		
 		Double sizeDouble = (Double) Math.min(canvas_width/world_width, canvas_height/world_height);
 		int size = sizeDouble.intValue();
 		if(size % 2 != 0) {

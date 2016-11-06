@@ -34,20 +34,20 @@ public final class CritterView {
 		gc.setLineWidth(1);
 		double x1 = 0;
 		double y1 = 0;
-		double y2 = Params.canvas_height;
+		double y2 = Params.world_height*Params.bin_size;
 		
 		//Width
-		for(int i = 0; i < Params.world_width; i++) {
+		for(int i = 0; i <= Params.world_width; i++) {
 	        gc.strokeLine(x1, y1, x1, y2);
 	        x1 += Params.bin_size;
 		}
 		
 		x1 = 0;
-		double x2 = Params.canvas_width;
+		double x2 = Params.world_width*Params.bin_size+1;
 		y1 = 0;
 		
 		//Height
-		for(int i = 0; i < Params.world_height; i++) {
+		for(int i = 0; i <= Params.world_height; i++) {
 	        gc.strokeLine(x1, y1, x2, y1);
 	        y1 += Params.bin_size;
 		}
