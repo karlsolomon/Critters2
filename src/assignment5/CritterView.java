@@ -7,6 +7,7 @@ import java.util.Map;
 import assignment5.Critter.CritterShape;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 /**
  * Display World Class for Critter2. Represents the view component for each critter
@@ -28,6 +29,28 @@ public final class CritterView {
     	gc.fillPolygon(xPoints, yPoints, xPoints.length);
 	}
 	
+	private static void drawGrid(GraphicsContext gc) {
+		gc.setStroke(Color.BLACK);
+		gc.setLineWidth(1);
+		double x1 = 0;
+		double y1 = 0;
+		double y2 = Params.canvas_height;
+		
+		for(int i = 0; i < Params.canvas_width; i++) {
+	        gc.strokeLine(x1, y1, x1, y2);
+	        x1 += Params.bin_size;
+		}
+		
+		x1 = 0;
+		double x2 = Params.canvas_width;
+		y1 = 0;
+		
+		for(int i = 0; i < Params.canvas_width; i++) {
+	        gc.strokeLine(x1, y1, x2, y1);
+	        y1 += Params.bin_size;
+		}
+	}
+	
 	
 	/**
 	 * Displays the Critter World
@@ -35,6 +58,7 @@ public final class CritterView {
 	public static void drawWorld(){
 	    GraphicsContext gc = Controller.world.getGraphicsContext2D();
 	    gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+	    drawGrid(gc);
 	    for(Critter c : CritterWorld.critterMap.keySet()) {
 	    	Draw(gc, c, CritterWorld.critterMap.get(c));
 	    }
