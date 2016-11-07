@@ -1,5 +1,6 @@
 package assignment5;
 
+@SuppressWarnings("serial")
 public class InvalidCritterException extends Exception {
 	String offending_class;
 	
