@@ -1,26 +1,15 @@
 package assignment5;
 	
-import java.io.IOException;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.*;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 public class Main extends Application {
 	public static Stage stage;

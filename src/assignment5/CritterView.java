@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import assignment5.Critter.CritterShape;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -66,7 +65,7 @@ public final class CritterView {
 	    }
 	}
 	
-	private static Map<CritterShape, ArrayList<Double>> shapes = initShapes();;
+	//private static Map<CritterShape, ArrayList<Double>> shapes = initShapes();;
 	public static Map<CritterShape, ArrayList<Double>> initShapes() {
 		Map<CritterShape, ArrayList<Double>> shapes = new HashMap<CritterShape, ArrayList<Double>>();
 		
