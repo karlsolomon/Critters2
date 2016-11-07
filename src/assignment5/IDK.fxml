@@ -55,7 +55,7 @@
             <Slider fx:id="speedSlider" layoutX="11.0" layoutY="416.0" max="20.0" min="1.0" prefWidth="80.0" />
             <Label layoutX="33.0" layoutY="396.0" text="Speed" />
             <TextField fx:id="speedDisplay" layoutX="10.0" layoutY="436.0" prefWidth="80.0" />
-            <Button layoutX="30.0" layoutY="366.0" mnemonicParsing="false" text="Stop" />
+            <Button layoutX="30.0" layoutY="366.0" mnemonicParsing="false" text="PLAY" />
          </children>
       </AnchorPane>
    </left>
