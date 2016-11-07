@@ -114,9 +114,6 @@ public class Controller implements Initializable{
 					heightDisplay.setText("" + Params.world_height.intValue());
 				}
 			}
-
-			Params.world_width = newVal.doubleValue();
-			Params.setBin();
 			
 		});
 		

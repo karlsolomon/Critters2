@@ -180,7 +180,10 @@ public abstract class Critter {
 	public String toString() { return ""; }
 	
 	private int energy = 0;
-	protected int getEnergy() { return energy; }
+	protected int getEnergy() {
+		if(energy<0) return 0;
+		else return energy; 
+	}
 	
 	private int x_coord;
 	private int y_coord;
