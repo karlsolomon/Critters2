@@ -2,12 +2,14 @@ package assignment5;
 
 import java.net.URL;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -208,27 +210,74 @@ public class Controller implements Initializable{
 			Stage window = new Stage();
 			window.initModality(Modality.APPLICATION_MODAL);
 			window.setMinWidth(250);
+			window.setTitle("World Size Error");
 			
 			Label label = new Label();
-			label.setText("The world dimensions cannot be changed once a Critter has been created.");
+			label.setText("The world dimensions cannot be changed\nonce a Critter has been created.");
 			
-			Button okButton = new Button("Ok");
+			Button okButton = new Button("OK");
+			Button resetBtn = new Button("Reset to new size?");
 			
 			okButton.setOnAction(e -> {
 				window.close();
+				worldWidth.setValue(Params.world_width);
+				worldHeight.setValue(Params.world_height);
+				widthDisplay.setText("" + Params.world_width.intValue());
+				heightDisplay.setText("" + Params.world_height.intValue());
+			});
+			
+			resetBtn.setOnAction(e -> {
+				Stage reset = new Stage();
+				reset.initModality(Modality.APPLICATION_MODAL);
+				reset.setMinWidth(250);
+				reset.setTitle("Reset Input");
+				
+				Label l = new Label();
+				l.setText("Input new World Dimensions");
+				
+				TextField w = new TextField();
+				w.setMaxWidth(100);
+				
+				TextField h = new TextField();
+				h.setMaxWidth(100);
+				
+				Button b = new Button("OK");
+				b.setOnAction(ev -> {
+					worldWidth.setValue(Double.parseDouble(w.getText()));
+					widthDisplay.setText("" + (int)Double.parseDouble(w.getText()));
+					worldHeight.setValue(Double.parseDouble(h.getText()));
+					heightDisplay.setText("" + (int)Double.parseDouble(h.getText()));
+					Params.world_width = Double.parseDouble(w.getText());
+					Params.world_height = Double.parseDouble(h.getText());
+					Params.setBin();
+					isStarted = false;
+					CritterWorld.critterMap = new HashMap<>();
+					showButtonClicked();
+					reset.close();
+					window.close();
+				});
+				
+				VBox v = new VBox();
+				v.getChildren().addAll(l,w,h,b);
+				v.setAlignment(Pos.CENTER);
+				v.setSpacing(8);
+				v.setPadding(new Insets(10,10,10,10));
+				Scene s = new Scene(v);
+				reset.setScene(s);
+				reset.showAndWait();
+				
 			});
 			
 			VBox layout = new VBox();
-			layout.getChildren().addAll(label, okButton);
+			layout.getChildren().addAll(label, okButton, resetBtn);
 			layout.setAlignment(Pos.CENTER);
+			layout.setSpacing(8);
+			layout.setPadding(new Insets(10,10,10,10));
 			Scene scene = new Scene(layout);
 			window.setScene(scene);
 			window.showAndWait();
 			
-			worldWidth.setValue(Params.world_width);
-			worldHeight.setValue(Params.world_height);
-			widthDisplay.setText("" + Params.world_width.intValue());
-			heightDisplay.setText("" + Params.world_height.intValue());
+			
 		}
 	}
 
