@@ -72,15 +72,54 @@ public class Controller implements Initializable{
 		worldHeight.setValue(Params.world_height);
 		worldWidth.valueProperty().addListener((obs, oldval, newVal) -> {
 			worldWidth.setValue(newVal.intValue());
+
+			if (!isStarted) {
+				Params.world_width = worldWidth.getValue();
+				Params.setBin();
+				CritterView.drawWorld();
+			}else{
+				//Pop-Up saying can not change world dimensions
+				
+				boolean reset = ConfirmBox.display("Da fuq?", "Are you sure you want to edit world dimensions?\n(Doing so will clear all Critters from the world.)");
+				if(reset){
+					Params.world_width = worldWidth.getValue();
+					Params.setBin();
+					isStarted = false;
+					CritterWorld.critterMap = new HashMap<>();
+					CritterView.drawWorld();
+				}else{
+					worldWidth.setValue(Params.world_width);
+					widthDisplay.setText("" + Params.world_width.intValue());
+				}
+			}
+		});
+		worldHeight.valueProperty().addListener((obs, oldval, newVal) -> {
+			worldHeight.setValue(newVal.intValue());
+			if (!isStarted) {
+				Params.world_height = worldHeight.getValue();
+				Params.setBin();
+				CritterView.drawWorld();
+			}else{
+				//Pop-Up saying can not change world dimensions
+				
+				boolean reset = ConfirmBox.display("Da fuq?", "Are you sure you want to edit world dimensions?\n(Doing so will clear all Critters from the world.)");
+				if(reset){
+					Params.world_height = worldHeight.getValue();
+					Params.setBin();
+					isStarted = false;
+					CritterWorld.critterMap = new HashMap<>();
+					CritterView.drawWorld();
+				}else{
+					worldHeight.setValue(Params.world_height);
+					heightDisplay.setText("" + Params.world_height.intValue());
+				}
+			}
+
 			Params.world_width = newVal.doubleValue();
 			Params.setBin();
 			
 		});
-		worldHeight.valueProperty().addListener((obs, oldval, newVal) -> {
-			worldHeight.setValue(newVal.intValue());
-			Params.world_height = newVal.doubleValue();
-			Params.setBin();
-		});
+		
 		speedSlider.valueProperty().addListener((obs, oldval, newVal) -> speedSlider.setValue(newVal.intValue()));
 				
 		widthDisplay.setText(new Integer(Params.world_width.intValue()).toString());
@@ -92,8 +131,7 @@ public class Controller implements Initializable{
 		speedDisplay.setText(new Integer(Params.animation_speed).toString());
 		speedDisplay.textProperty().bindBidirectional(speedSlider.valueProperty(), NumberFormat.getNumberInstance());
 		
-//		speedLabel.setText(Math.round(speedSlider.getValue()) + "");
-//		speedLabel.textProperty().bind(Bindings.format("%d",speedSlider.valueProperty().intValue()));
+
 		
 	}
 	
@@ -196,8 +234,6 @@ public class Controller implements Initializable{
 			
 		}
 	}
-	public void changeWorldDimensions(){}
-
 
 	
 }
