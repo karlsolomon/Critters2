@@ -37,12 +37,12 @@ public class Controller implements Initializable{
 	public static Button buttonStep = new Button();
 	public Button buttonSeed;
 	public Button buttonQuit;
-	public Button buttonShow;
 	public Button startButton;
 	public Button quitButton;
 	public TextField makeNumber;
 	@FXML
 	public static TextField stepNumber;
+	public static Canvas canvas = new Canvas();
 	public TextField seedNumber;
 	public SplitPane splitPane;
 	@FXML
@@ -72,10 +72,11 @@ public class Controller implements Initializable{
 		worldHeight.setValue(Params.world_height);
 		worldWidth.valueProperty().addListener((obs, oldval, newVal) -> {
 			worldWidth.setValue(newVal.intValue());
+
 			if (!isStarted) {
 				Params.world_width = worldWidth.getValue();
 				Params.setBin();
-				showButtonClicked();
+				CritterView.drawWorld();
 			}else{
 				//Pop-Up saying can not change world dimensions
 				
@@ -85,7 +86,7 @@ public class Controller implements Initializable{
 					Params.setBin();
 					isStarted = false;
 					CritterWorld.critterMap = new HashMap<>();
-					showButtonClicked();
+					CritterView.drawWorld();
 				}else{
 					worldWidth.setValue(Params.world_width);
 					widthDisplay.setText("" + Params.world_width.intValue());
@@ -97,7 +98,7 @@ public class Controller implements Initializable{
 			if (!isStarted) {
 				Params.world_height = worldHeight.getValue();
 				Params.setBin();
-				showButtonClicked();
+				CritterView.drawWorld();
 			}else{
 				//Pop-Up saying can not change world dimensions
 				
@@ -107,13 +108,18 @@ public class Controller implements Initializable{
 					Params.setBin();
 					isStarted = false;
 					CritterWorld.critterMap = new HashMap<>();
-					showButtonClicked();
+					CritterView.drawWorld();
 				}else{
 					worldHeight.setValue(Params.world_height);
 					heightDisplay.setText("" + Params.world_height.intValue());
 				}
 			}
+
+			Params.world_width = newVal.doubleValue();
+			Params.setBin();
+			
 		});
+		
 		speedSlider.valueProperty().addListener((obs, oldval, newVal) -> speedSlider.setValue(newVal.intValue()));
 				
 		widthDisplay.setText(new Integer(Params.world_width.intValue()).toString());
@@ -125,8 +131,7 @@ public class Controller implements Initializable{
 		speedDisplay.setText(new Integer(Params.animation_speed).toString());
 		speedDisplay.textProperty().bindBidirectional(speedSlider.valueProperty(), NumberFormat.getNumberInstance());
 		
-//		speedLabel.setText(Math.round(speedSlider.getValue()) + "");
-//		speedLabel.textProperty().bind(Bindings.format("%d",speedSlider.valueProperty().intValue()));
+
 		
 	}
 	
@@ -158,11 +163,7 @@ public class Controller implements Initializable{
 	 * DONE
 	 */
 	public void stepButtonClicked(){
-		buttonStep.setOnAction( e -> {
-			GraphicsContext gc = Main.canvas.getGraphicsContext2D();
-		    gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-
-		});
+		
 		String steps;
 		try{
 			 steps = stepNumber.getText();
@@ -173,9 +174,13 @@ public class Controller implements Initializable{
 		System.out.println("Step " + steps + " time(s)");	
 		int numSteps = Integer.parseInt(steps);
 		for(int i = 0; i < numSteps ; i++) {
-			CritterWorld.doTimeStep();
+			Critter.worldTimeStep();
 		}	
-		showButtonClicked();
+
+		if(world != Main.canvas)
+			world = Main.canvas;
+		System.out.println("Clicked the show Button!");
+	    CritterView.drawWorld();
 	}
 	
 	/**
@@ -210,16 +215,7 @@ public class Controller implements Initializable{
 			Main.stage.close();
 		}
 	}
-	
-	/**
-	 * FIXME: drawWorld doesn't work
-	 */
-	public void showButtonClicked(){
-		if(world != Main.canvas)
-			world = Main.canvas;
-		System.out.println("Clicked the show Button!");
-	    CritterView.drawWorld();
-	}
+
 
 
 	public void startButton(){
@@ -232,7 +228,7 @@ public class Controller implements Initializable{
 			
 		}
 	}
-	
+
 	
 }
 

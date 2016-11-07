@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import assignment5.Critter.CritterShape;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -30,7 +31,7 @@ public final class CritterView {
 	
 	private static void drawGrid(GraphicsContext gc) {
 		gc.setStroke(Color.BLACK);
-		gc.setLineWidth(1);
+		gc.setLineWidth(0.1);
 		double x1 = 0;
 		double y1 = 0;
 		double y2 = Params.world_height*Params.bin_size;
