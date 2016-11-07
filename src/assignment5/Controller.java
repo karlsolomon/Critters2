@@ -48,15 +48,15 @@ public class Controller implements Initializable{
 	@FXML
 	public static Pane worldPane;
 	public CheckBox steps;
-	public CheckBox continuous;
+	public CheckBox continuous = new CheckBox();
 	public ChoiceBox<String> makeCritter;
 	public ChoiceBox<String> statsCritter;
 	public Slider worldWidth;
 	public Slider worldHeight;
-	public Slider speedSlider;
+	public Slider speedSlider = new Slider();
 	public TextField widthDisplay;
 	public TextField heightDisplay;
-	public TextField speedDisplay;
+	public TextField speedDisplay = new TextField();
 	
 	@FXML
 	public static Canvas world;
@@ -125,7 +125,9 @@ public class Controller implements Initializable{
 	 * DONE
 	 */
 	public void stepButtonClicked(){
-		
+		if(continuous.isSelected()) {
+			continuousStep();
+		}
 		String steps;
 		try{
 			 steps = stepNumber.getText();
@@ -143,6 +145,10 @@ public class Controller implements Initializable{
 			world = Main.canvas;
 		System.out.println("Clicked the show Button!");
 	    CritterView.drawWorld();
+	}
+	
+	private void continuousStep() {
+		
 	}
 	
 	/**
