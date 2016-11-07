@@ -37,12 +37,12 @@ public class Controller implements Initializable{
 	public static Button buttonStep = new Button();
 	public Button buttonSeed;
 	public Button buttonQuit;
-	public Button buttonShow;
 	public Button startButton;
 	public Button quitButton;
 	public TextField makeNumber;
 	@FXML
 	public static TextField stepNumber;
+	public static Canvas canvas = new Canvas();
 	public TextField seedNumber;
 	public SplitPane splitPane;
 	@FXML
@@ -72,14 +72,14 @@ public class Controller implements Initializable{
 		worldHeight.setValue(Params.world_height);
 		worldWidth.valueProperty().addListener((obs, oldval, newVal) -> {
 			worldWidth.setValue(newVal.intValue());
-//			Params.world_width = newVal.doubleValue();
-//			Params.setBin();
+			Params.world_width = newVal.doubleValue();
+			Params.setBin();
 			
 		});
 		worldHeight.valueProperty().addListener((obs, oldval, newVal) -> {
 			worldHeight.setValue(newVal.intValue());
-//			Params.world_height = newVal.doubleValue();
-//			Params.setBin();
+			Params.world_height = newVal.doubleValue();
+			Params.setBin();
 		});
 		speedSlider.valueProperty().addListener((obs, oldval, newVal) -> speedSlider.setValue(newVal.intValue()));
 				
@@ -125,11 +125,7 @@ public class Controller implements Initializable{
 	 * DONE
 	 */
 	public void stepButtonClicked(){
-		buttonStep.setOnAction( e -> {
-			GraphicsContext gc = Main.canvas.getGraphicsContext2D();
-		    gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-
-		});
+		
 		String steps;
 		try{
 			 steps = stepNumber.getText();
@@ -140,9 +136,13 @@ public class Controller implements Initializable{
 		System.out.println("Step " + steps + " time(s)");	
 		int numSteps = Integer.parseInt(steps);
 		for(int i = 0; i < numSteps ; i++) {
-			CritterWorld.doTimeStep();
+			Critter.worldTimeStep();
 		}	
-		showButtonClicked();
+
+		if(world != Main.canvas)
+			world = Main.canvas;
+		System.out.println("Clicked the show Button!");
+	    CritterView.drawWorld();
 	}
 	
 	/**
@@ -177,16 +177,7 @@ public class Controller implements Initializable{
 			Main.stage.close();
 		}
 	}
-	
-	/**
-	 * FIXME: drawWorld doesn't work
-	 */
-	public void showButtonClicked(){
-		if(world != Main.canvas)
-			world = Main.canvas;
-		System.out.println("Clicked the show Button!");
-	    CritterView.drawWorld();
-	}
+
 
 
 	public void startButton(){
@@ -199,87 +190,8 @@ public class Controller implements Initializable{
 			
 		}
 	}
-	public void changeWorldDimensions(){
-		
-		if (!isStarted) {
-			Params.world_width = worldWidth.getValue();
-			Params.world_height = worldHeight.getValue();
-			Params.setBin();
-		}else{
-			//Pop-Up saying can not change world dimensions
-			Stage window = new Stage();
-			window.initModality(Modality.APPLICATION_MODAL);
-			window.setMinWidth(250);
-			window.setTitle("World Size Error");
-			
-			Label label = new Label();
-			label.setText("The world dimensions cannot be changed\nonce a Critter has been created.");
-			
-			Button okButton = new Button("OK");
-			Button resetBtn = new Button("Reset to new size?");
-			
-			okButton.setOnAction(e -> {
-				window.close();
-				worldWidth.setValue(Params.world_width);
-				worldHeight.setValue(Params.world_height);
-				widthDisplay.setText("" + Params.world_width.intValue());
-				heightDisplay.setText("" + Params.world_height.intValue());
-			});
-			
-			resetBtn.setOnAction(e -> {
-				Stage reset = new Stage();
-				reset.initModality(Modality.APPLICATION_MODAL);
-				reset.setMinWidth(250);
-				reset.setTitle("Reset Input");
-				
-				Label l = new Label();
-				l.setText("Input new World Dimensions");
-				
-				TextField w = new TextField();
-				w.setMaxWidth(100);
-				
-				TextField h = new TextField();
-				h.setMaxWidth(100);
-				
-				Button b = new Button("OK");
-				b.setOnAction(ev -> {
-					worldWidth.setValue(Double.parseDouble(w.getText()));
-					widthDisplay.setText("" + (int)Double.parseDouble(w.getText()));
-					worldHeight.setValue(Double.parseDouble(h.getText()));
-					heightDisplay.setText("" + (int)Double.parseDouble(h.getText()));
-					Params.world_width = Double.parseDouble(w.getText());
-					Params.world_height = Double.parseDouble(h.getText());
-					Params.setBin();
-					isStarted = false;
-					CritterWorld.critterMap = new HashMap<>();
-					showButtonClicked();
-					reset.close();
-					window.close();
-				});
-				
-				VBox v = new VBox();
-				v.getChildren().addAll(l,w,h,b);
-				v.setAlignment(Pos.CENTER);
-				v.setSpacing(8);
-				v.setPadding(new Insets(10,10,10,10));
-				Scene s = new Scene(v);
-				reset.setScene(s);
-				reset.showAndWait();
-				
-			});
-			
-			VBox layout = new VBox();
-			layout.getChildren().addAll(label, okButton, resetBtn);
-			layout.setAlignment(Pos.CENTER);
-			layout.setSpacing(8);
-			layout.setPadding(new Insets(10,10,10,10));
-			Scene scene = new Scene(layout);
-			window.setScene(scene);
-			window.showAndWait();
-			
-			
-		}
-	}
+	public void changeWorldDimensions(){}
+
 
 	
 }
