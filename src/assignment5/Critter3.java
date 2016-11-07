@@ -89,7 +89,7 @@ public class Critter3 extends Critter{
 	private int toDirection() {
 		int statement = Critter.getRandomInt(pantsOnFire+1);
 		int truth = 0;
-		for(int i = 0; i < truthTable.length; i++) {
+		for(int i = 1; i < truthTable.length; i++) {
 			if(statement < truthTable[i]) {
 				dir += i;
 				truth += 1;
