@@ -8,8 +8,6 @@ public class CritterWorld {
 	public static Map<Critter, Point> critterMap = new HashMap<Critter, Point>();	//official record of Critters and their location
 	public static Map<Critter, Point> updatedCritterMap = new HashMap<Critter, Point>();
 	public static Map<Critter, Point> babies = new HashMap<>();
-	private static int width = Params.world_width.intValue();
-	private static int height = Params.world_height.intValue();
  
 	public static void addCritter(Critter c, Point p){
 		critterMap.put(c, p);
@@ -92,8 +90,8 @@ public class CritterWorld {
 	 * @return random point location on the world map
 	 */
 	public static Point getRandomLocation(){
-		int x = Critter.getRandomInt(width);
-		int y = Critter.getRandomInt(height);
+		int x = Critter.getRandomInt(Params.world_width.intValue());
+		int y = Critter.getRandomInt(Params.world_height.intValue());
 		return new Point(x,y);
 	}
 	/**

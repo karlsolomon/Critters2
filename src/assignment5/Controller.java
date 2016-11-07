@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -25,13 +26,15 @@ public class Controller implements Initializable{
 	
 	public Button buttonMake;
 	public Button buttonStats;
-	public static Button buttonStep;
+	@FXML
+	public static Button buttonStep = new Button();
 	public Button buttonSeed;
 	public Button buttonQuit;
 	public Button buttonShow;
 	public Button startButton;
 	public Button quitButton;
 	public TextField makeNumber;
+	@FXML
 	public static TextField stepNumber;
 	public TextField seedNumber;
 	public SplitPane splitPane;
@@ -114,6 +117,11 @@ public class Controller implements Initializable{
 	 * DONE
 	 */
 	public void stepButtonClicked(){
+		buttonStep.setOnAction( e -> {
+			GraphicsContext gc = Main.canvas.getGraphicsContext2D();
+		    gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+
+		});
 		String steps;
 		try{
 			 steps = stepNumber.getText();
