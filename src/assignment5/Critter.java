@@ -256,6 +256,7 @@ public abstract class Critter {
 		try{
 			Class<?> c = Class.forName(myPackage + critter_class_name);
 			Constructor<?> newCon = c.getConstructor();
+			@SuppressWarnings("unused")
 			Object obj = newCon.newInstance();
 			//^^This is to get an object of the class requested
 		}catch(Exception e){
