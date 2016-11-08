@@ -47,7 +47,7 @@ public class Controller implements Initializable{
 	public Button quitButton = new Button();
 	public TextField makeNumber = new TextField();
 	@FXML
-	public static TextField stepNumber;
+	public TextField stepNumber = new TextField();
 	public static Canvas canvas = new Canvas();
 	public TextField seedNumber = new TextField();
 	public Button continuous;
@@ -184,6 +184,7 @@ public class Controller implements Initializable{
 		disabledWhileRunning.add(buttonQuit);
 		disabledWhileRunning.add(makeNumber);
 		disabledWhileRunning.add(stepNumber);
+		disabledWhileRunning.add(seedNumber);
 		disabledWhileRunning.add(worldWidth);
 		disabledWhileRunning.add(worldHeight);
 		disabledWhileRunning.add(speedSlider);

@@ -28,7 +28,8 @@ public class Critter4 extends Critter{
 		return CritterWorld.tryMove(this, dir, 1);
 	}
 	
-	private void move() {	
+	private void move() {
+		moveCounter %= 4;
 		int action = Critter.getRandomInt(3);
 		if(action == 0) {
 			super.walk(pattern[moveCounter]);

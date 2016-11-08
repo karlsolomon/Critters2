@@ -40,7 +40,7 @@
             <TextField fx:id="speedDisplay" layoutX="57.0" layoutY="268.0" prefWidth="80.0" />
             <Button fx:id="continuous" layoutX="10.0" layoutY="226.0" mnemonicParsing="false" text="PLAY" />
             <Button fx:id="buttonStep" layoutX="10.0" layoutY="326.0" mnemonicParsing="false" onAction="#stepButtonClicked" text="Step" />
-            <TextField layoutX="69.0" layoutY="326.0" prefWidth="80.0" />
+            <TextField fx:id="stepNumber" layoutX="69.0" layoutY="326.0" prefWidth="80.0" />
             <Button fx:id="buttonMake" layoutX="10.0" layoutY="384.0" mnemonicParsing="false" onAction="#makeButtonClicked" text="Make" />
             <TextField fx:id="makeNumber" layoutX="66.0" layoutY="384.0" prefHeight="25.0" prefWidth="86.0" text="1" />
             <ChoiceBox fx:id="makeCritter" layoutX="11.0" layoutY="423.0" prefWidth="140.0" />
