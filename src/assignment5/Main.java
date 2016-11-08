@@ -45,7 +45,7 @@ public class Main extends Application {
 		for(String x : critterList){
 			System.out.println(x);
 		}
-	    primaryStage.setTitle("Drawing Operations Test");
+	    primaryStage.setTitle("Critters");
         Group root = new Group();
         Parent parent = FXMLLoader.load(getClass().getResource("IDK.fxml"));
 

@@ -33,7 +33,7 @@ import javafx.stage.Stage;
 public class Controller implements Initializable{
 	
 	public boolean isStarted = false;
-	public boolean statsRunning = false;
+	public static boolean statsRunning = false;
 	public String critterType;
 	public static boolean playing = false;
 	public static StatBox stats;
@@ -146,7 +146,7 @@ public class Controller implements Initializable{
 						waitTime = 1000/Long.parseLong(speedDisplay.getText());
 						Critter.worldTimeStep();
 						CritterView.drawWorld();
-						stats.update();
+						if(statsRunning) stats.update();
 						try{
 							Thread.sleep(waitTime);
 						} catch (Exception e1){
@@ -215,11 +215,33 @@ public class Controller implements Initializable{
 	}
 	
 	public void statsButtonClicked(){
-		statsRunning = true;
-		critterType = statsCritter.getValue();
-		System.out.println("Run stats on " + critterType);
-		stats = new StatBox(critterType);
-		stats.update();
+		String s = statsCritter.getValue();
+		if(s == null) return;
+		//if stats is already running
+			//same critter type
+				//update the window
+			//different critter type
+				//close old window and open new
+		//if stats isnt running
+			//build new stats window
+		if(statsRunning){
+			if(critterType.equals(s)){
+				stats.update();
+			}else{
+				stats.close();
+				critterType = s;
+				stats = new StatBox(critterType);
+				stats.update();
+			}
+		}else{
+			statsRunning = true;
+			critterType = s;
+			stats = new StatBox(critterType);
+			stats.update();
+		}
+		
+		
+	
 	}
 	
 	/*
@@ -248,7 +270,7 @@ public class Controller implements Initializable{
 
 		System.out.println("Clicked the show Button!");
 	    CritterView.drawWorld();
-	    stats.update();
+	    if(statsRunning) stats.update();
 	}
 	
 	

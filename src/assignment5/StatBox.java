@@ -39,9 +39,17 @@ public class StatBox {
 			List<Critter> list = Critter.getInstances(name);
 			s = Critter.runStats(list);
 			label.setText(s);
+			window.setOnCloseRequest(e -> {
+				Controller.statsRunning = false;
+				System.out.println(Controller.statsRunning);
+			});
 			window.show();
 			
 		} catch (ClassNotFoundException |InvalidCritterException e) {}
+	}
+	
+	public void close(){
+		window.close();
 	}
 	
 }
