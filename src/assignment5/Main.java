@@ -57,9 +57,9 @@ public class Main extends Application {
 
         double height = primaryStage.getHeight();
         double width = primaryStage.getWidth();
-        double leftMargin = 110;
-        double rightMargin = 20;
-        double bottomMargin = 130;
+        double leftMargin = 180;
+        double rightMargin = 0;
+        double bottomMargin = 10;
         double topMargin = 35;
        // canvas = Controller.canvas;//new Canvas(Params.canvas_width,Params.canvas_height);
         Params.setCanvasParams(width - (leftMargin + rightMargin), height - (topMargin + bottomMargin));

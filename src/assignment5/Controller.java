@@ -38,7 +38,7 @@ public class Controller implements Initializable{
 	public Button buttonMake = new Button();
 	public Button buttonStats = new Button();
 	@FXML
-	public static Button buttonStep = new Button();
+	public Button buttonStep = new Button();
 	public Button buttonSeed = new Button();
 	public Button buttonQuit = new Button();
 	public Button startButton = new Button();
@@ -48,9 +48,9 @@ public class Controller implements Initializable{
 	public static TextField stepNumber;
 	public static Canvas canvas = new Canvas();
 	public TextField seedNumber = new TextField();
-	public Button continuous = new Button();
-	public ChoiceBox<String> makeCritter;
-	public ChoiceBox<String> statsCritter;
+	public Button continuous;
+	public ChoiceBox<String> makeCritter = new ChoiceBox<>();
+	public ChoiceBox<String> statsCritter = new ChoiceBox<>();
 	public Slider worldWidth = new Slider();
 	public Slider worldHeight = new Slider();
 	public Slider speedSlider = new Slider();
@@ -63,7 +63,6 @@ public class Controller implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		addNodes();
-		
 		continuous.setText("Start");
 		continuous.setStyle("-fx-text-fill: green");		
 		ObservableList<String> list = FXCollections.observableArrayList(Main.critterList);
@@ -176,6 +175,9 @@ public class Controller implements Initializable{
 	public void addNodes(){
 		disabledWhileRunning.add(buttonMake);
 		disabledWhileRunning.add(buttonStats);
+		disabledWhileRunning.add(statsCritter);
+		disabledWhileRunning.add(makeCritter);
+		disabledWhileRunning.add(buttonStep);
 		disabledWhileRunning.add(buttonSeed);
 		disabledWhileRunning.add(buttonQuit);
 		disabledWhileRunning.add(makeNumber);
