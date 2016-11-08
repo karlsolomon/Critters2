@@ -33,6 +33,8 @@ import javafx.stage.Stage;
 public class Controller implements Initializable{
 	
 	public boolean isStarted = false;
+	public boolean statsRunning = false;
+	public String critterType;
 	public static boolean playing = false;
 	
 	public Button buttonMake = new Button();
@@ -208,7 +210,8 @@ public class Controller implements Initializable{
 	}
 	
 	public void statsButtonClicked(){
-		String critterType = statsCritter.getValue();
+		statsRunning = true;
+		critterType = statsCritter.getValue();
 		System.out.println("Run stats on " + critterType);
 	}
 	
