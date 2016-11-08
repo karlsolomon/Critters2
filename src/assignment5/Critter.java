@@ -3,6 +3,10 @@ package assignment5;
 import java.lang.reflect.Constructor;
 import java.util.List;
 
+import javafx.scene.control.Label;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
 public abstract class Critter {
 	/* NEW FOR PROJECT 5 */
 	
@@ -282,10 +286,36 @@ public abstract class Critter {
 	}
 	
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
-		return null;
+		List<Critter> result = new java.util.ArrayList<Critter>();
+		Critter critter;
+		try{
+			Class<?> c = Class.forName("assignment5."+critter_class_name);//Creates a class object of type given by name
+			Constructor<?> newCon = c.getConstructor();//gets the constructor for that class
+			Object obj = newCon.newInstance();//creates the actual object using the constructor
+			critter = (Critter)obj;//casts the object as a critter type
+			//^^This first bit is to determine what type of critter we want to return in List
+			String s = critter.toString();//gets the toString value to compare
+			
+			for(Critter i : CritterWorld.critterMap.keySet()) {
+				if(i.toString() == s) { //cycling through, finds critters with the same toString
+					result.add(i);//adds them to the list to return
+				}
+			}
+			for(Critter i : CritterWorld.babies.keySet()) {
+				if(i.toString() == s) { //cycling through, finds critters with the same toString
+					result.add(i);//adds them to the list to return
+				}
+			}
+		}catch(Exception e){
+			throw new InvalidCritterException(critter_class_name);
+		}
+		
+		return result;
 	}
 	
-	public static void runStats(List<Critter> critters) {}
+	public static void runStats(List<Critter> critters) {
+		
+	}
 	
 	/* the TestCritter class allows some critters to "cheat". If you want to 
 	 * create tests of your Critter model, you can create subclasses of this class

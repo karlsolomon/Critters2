@@ -30,6 +30,8 @@ import javafx.stage.Stage;
 public class Controller implements Initializable{
 	
 	public boolean isStarted = false;
+	public boolean statsRunning = false;
+	public String critterType;
 	
 	public Button buttonMake;
 	public Button buttonStats;
@@ -152,8 +154,24 @@ public class Controller implements Initializable{
 	}
 	
 	public void statsButtonClicked(){
-		String critterType = statsCritter.getValue();
+		statsRunning = true;
+		critterType = statsCritter.getValue();
 		System.out.println("Run stats on " + critterType);
+//		Stage window = new Stage();
+//		window.setTitle(critterType + " Stats");
+//		try {
+//			Label l = Critter.runStats(Critter.getInstances(critterType));
+//			VBox v = new VBox();
+//			v.getChildren().add(l);
+//			v.setAlignment(Pos.CENTER);
+//			Scene scene = new Scene(v);
+//			window.setScene(scene);
+//			window.show();
+//		} catch (InvalidCritterException e) {
+//			e.printStackTrace();
+//		}
+//		
+		
 	}
 	
 	/*
