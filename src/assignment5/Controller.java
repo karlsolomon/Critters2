@@ -2,6 +2,7 @@ package assignment5;
 
 import java.net.URL;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -12,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -33,39 +35,35 @@ public class Controller implements Initializable{
 	public boolean isStarted = false;
 	public static boolean playing = false;
 	
-	public Button buttonMake;
-	public Button buttonStats;
+	public Button buttonMake = new Button();
+	public Button buttonStats = new Button();
 	@FXML
 	public static Button buttonStep = new Button();
-	public Button buttonSeed;
-	public Button buttonQuit;
-	public Button startButton;
-	public Button quitButton;
-	public TextField makeNumber;
+	public Button buttonSeed = new Button();
+	public Button buttonQuit = new Button();
+	public Button startButton = new Button();
+	public Button quitButton = new Button();
+	public TextField makeNumber = new TextField();
 	@FXML
 	public static TextField stepNumber;
 	public static Canvas canvas = new Canvas();
-	public TextField seedNumber;
-	public SplitPane splitPane;
-	@FXML
-	public static Pane worldPane;
-	public CheckBox steps;
+	public TextField seedNumber = new TextField();
 	public Button continuous = new Button();
 	public ChoiceBox<String> makeCritter;
 	public ChoiceBox<String> statsCritter;
-	public Slider worldWidth;
-	public Slider worldHeight;
+	public Slider worldWidth = new Slider();
+	public Slider worldHeight = new Slider();
 	public Slider speedSlider = new Slider();
-	public TextField widthDisplay;
-	public TextField heightDisplay;
+	public TextField widthDisplay = new TextField();
+	public TextField heightDisplay = new TextField();
 	public TextField speedDisplay = new TextField();
-	
-	@FXML
-	public static Canvas world;
+	private ArrayList<Node> disabledWhileRunning = new ArrayList<Node>();
 	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		addNodes();
+		
 		continuous.setText("Start");
 		continuous.setStyle("-fx-text-fill: green");		
 		ObservableList<String> list = FXCollections.observableArrayList(Main.critterList);
@@ -125,10 +123,18 @@ public class Controller implements Initializable{
 			if(playing) {
 				continuous.setText("STOP");
 				continuous.setStyle("-fx-text-fill: red");
+				for(Node n : disabledWhileRunning) {
+					if(n != null)
+						n.setDisable(true);
+				}
 			}
 			else {
 				continuous.setText("START");
 				continuous.setStyle("-fx-text-fill: green");
+				for(Node n : disabledWhileRunning) {
+					if(n!= null)
+						n.setDisable(false);
+				}
 			}
 			Thread play = new Thread() {
 				@Override
@@ -166,6 +172,22 @@ public class Controller implements Initializable{
 		
 	}
 	
+	
+	public void addNodes(){
+		disabledWhileRunning.add(buttonMake);
+		disabledWhileRunning.add(buttonStats);
+		disabledWhileRunning.add(buttonSeed);
+		disabledWhileRunning.add(buttonQuit);
+		disabledWhileRunning.add(makeNumber);
+		disabledWhileRunning.add(stepNumber);
+		disabledWhileRunning.add(worldWidth);
+		disabledWhileRunning.add(worldHeight);
+		disabledWhileRunning.add(speedSlider);
+		disabledWhileRunning.add(widthDisplay);
+		disabledWhileRunning.add(heightDisplay);
+		disabledWhileRunning.add(speedDisplay);
+	}
+	
 	/*
 	 * DONE
 	 */
@@ -196,19 +218,24 @@ public class Controller implements Initializable{
 	public void stepButtonClicked(){
 		String steps;
 		try{
-			 steps = stepNumber.getText();
+			steps = stepNumber.getText();
 		}
 		catch (Exception e) {
 			steps = "1";
 		}
 		System.out.println("Step " + steps + " time(s)");	
-		int numSteps = Integer.parseInt(steps);
+		int numSteps = 1;
+		try{
+			numSteps = Integer.parseInt(steps);
+		}
+		catch (NumberFormatException e) {
+			System.out.println("ADD ALERT MESSAGE HERE");//TODO: ALERT TO SAY MUST ENTER INTEGER
+			return;
+		}
 		for(int i = 0; i < numSteps ; i++) {
 			Critter.worldTimeStep();
 		}	
 
-		if(world != Main.canvas)
-			world = Main.canvas;
 		System.out.println("Clicked the show Button!");
 	    CritterView.drawWorld();
 	}

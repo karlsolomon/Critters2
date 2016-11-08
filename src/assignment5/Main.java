@@ -61,14 +61,14 @@ public class Main extends Application {
         double rightMargin = 20;
         double bottomMargin = 130;
         double topMargin = 35;
-        canvas = Controller.canvas;//new Canvas(Params.canvas_width,Params.canvas_height);
+       // canvas = Controller.canvas;//new Canvas(Params.canvas_width,Params.canvas_height);
         Params.setCanvasParams(width - (leftMargin + rightMargin), height - (topMargin + bottomMargin));
         Params.setWorldParams(50, 50);
-        canvas.setWidth(width - (leftMargin + rightMargin));
-        canvas.setHeight(height - (topMargin + bottomMargin));
-        canvas.setLayoutX(leftMargin);
-        canvas.setLayoutY(topMargin);
-        root.getChildren().add(canvas);
+        Controller.canvas.setWidth(width - (leftMargin + rightMargin));
+        Controller.canvas.setHeight(height - (topMargin + bottomMargin));
+        Controller.canvas.setLayoutX(leftMargin);
+        Controller.canvas.setLayoutY(topMargin);
+        root.getChildren().add(Controller.canvas);
     }
     
     public void close(){

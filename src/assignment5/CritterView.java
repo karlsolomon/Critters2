@@ -58,7 +58,7 @@ public final class CritterView {
 	 * Displays the Critter World
 	 */
 	public static void drawWorld(){
-	    GraphicsContext gc = Controller.world.getGraphicsContext2D();
+	    GraphicsContext gc = Controller.canvas.getGraphicsContext2D();
 	    gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 	    drawGrid(gc);
 	    for(Critter c : CritterWorld.critterMap.keySet()) {
