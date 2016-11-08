@@ -36,6 +36,7 @@ public class Controller implements Initializable{
 	public boolean statsRunning = false;
 	public String critterType;
 	public static boolean playing = false;
+	public static StatBox stats;
 	
 	public Button buttonMake = new Button();
 	public Button buttonStats = new Button();
@@ -145,6 +146,7 @@ public class Controller implements Initializable{
 						waitTime = 1000/Long.parseLong(speedDisplay.getText());
 						Critter.worldTimeStep();
 						CritterView.drawWorld();
+						stats.update();
 						try{
 							Thread.sleep(waitTime);
 						} catch (Exception e1){
@@ -216,6 +218,8 @@ public class Controller implements Initializable{
 		statsRunning = true;
 		critterType = statsCritter.getValue();
 		System.out.println("Run stats on " + critterType);
+		stats = new StatBox(critterType);
+		stats.update();
 	}
 	
 	/*
@@ -244,6 +248,7 @@ public class Controller implements Initializable{
 
 		System.out.println("Clicked the show Button!");
 	    CritterView.drawWorld();
+	    stats.update();
 	}
 	
 	
@@ -283,15 +288,9 @@ public class Controller implements Initializable{
 
 
 
-	public void startButton(){
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("MainController.fxml"));
-			Main.stage.setTitle("Hello World");
-			Main.stage.setScene(new Scene(root, Params.canvas_width,Params.canvas_height));
-			Main.stage.show();
-		} catch (Exception e) {
-			
-		}
+	public void clearGrid(){
+		CritterWorld.critterMap = new HashMap<>();
+		CritterView.drawWorld();
 	}
 
 	
