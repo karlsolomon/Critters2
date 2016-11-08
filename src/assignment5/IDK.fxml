@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -15,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="assignment5.Controller">
+<BorderPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="assignment5.Controller">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -28,41 +25,39 @@
         </menus>
       </MenuBar>
    </top>
-   <bottom>
-      <AnchorPane prefHeight="89.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="buttonStep" layoutX="63.0" layoutY="13.0" mnemonicParsing="false" onAction="#stepButtonClicked" text="Step" />
-            <Button fx:id="buttonMake" layoutX="199.0" layoutY="14.0" mnemonicParsing="false" onAction="#makeButtonClicked" text="Make" />
-            <ChoiceBox fx:id="makeCritter" layoutX="199.0" layoutY="48.0" prefWidth="150.0" />
-            <TextField fx:id="makeNumber" layoutX="263.0" layoutY="14.0" prefHeight="25.0" prefWidth="86.0" text="1" />
-            <Button fx:id="buttonStats" layoutX="449.0" layoutY="14.0" mnemonicParsing="false" onAction="#statsButtonClicked" text="Stats" />
-            <ChoiceBox fx:id="statsCritter" layoutX="400.0" layoutY="48.0" prefWidth="150.0" />
-            <Button fx:id="buttonSeed" layoutX="672.0" layoutY="14.0" mnemonicParsing="false" onAction="#seedButtonClicked" text="Seed" />
-            <TextField fx:id="seedNumber" layoutX="619.0" layoutY="48.0" />
-            <Separator layoutX="176.0" orientation="VERTICAL" prefHeight="89.0" />
-            <Separator layoutX="574.0" orientation="VERTICAL" prefHeight="89.0" />
-            <Separator layoutX="377.0" orientation="VERTICAL" prefHeight="89.0" />
-            <TextField fx:id="stepNumber" layoutX="43.0" layoutY="48.0" prefWidth="80.0" />
-         </children>
-      </AnchorPane>
-   </bottom>
    <left>
-      <AnchorPane maxWidth="100.0" minWidth="100.0" prefHeight="486.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <AnchorPane maxWidth="286.0" minWidth="100.0" prefHeight="575.0" prefWidth="170.0" BorderPane.alignment="CENTER">
          <children>
-            <Slider fx:id="worldWidth" layoutX="43.0" layoutY="36.0" max="200.0" min="10.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="14.0" />
-            <Slider fx:id="worldHeight" layoutX="42.0" layoutY="211.0" max="200.0" min="10.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="14.0" />
-            <TextField fx:id="widthDisplay" layoutX="10.0" layoutY="148.0" prefWidth="80.0" />
-            <TextField fx:id="heightDisplay" layoutX="13.0" layoutY="324.0" prefWidth="80.0" />
-            <Label layoutX="15.0" layoutY="14.0" text="World Width" />
-            <Label layoutX="17.0" layoutY="187.0" text="World Height" />
-            <Slider fx:id="speedSlider" layoutX="11.0" layoutY="416.0" max="20.0" min="1.0" prefWidth="80.0" />
-            <Label layoutX="33.0" layoutY="396.0" text="Speed" />
-            <TextField fx:id="speedDisplay" layoutX="10.0" layoutY="436.0" prefWidth="80.0" />
-            <Button fx:id="continuous" layoutX="30.0" layoutY="366.0" mnemonicParsing="false" text="PLAY" />
+            <TextField fx:id="widthDisplay" layoutX="84.0" layoutY="22.0" prefWidth="80.0" />
+            <TextField fx:id="heightDisplay" layoutX="88.0" layoutY="124.0" prefWidth="80.0" />
+            <Label layoutX="5.0" layoutY="24.0" text="World Width" />
+            <Label layoutX="7.0" layoutY="127.0" text="World Height" />
+            <Slider fx:id="speedSlider" layoutX="63.0" layoutY="231.0" max="20.0" min="1.0" prefWidth="80.0" />
+            <Label layoutX="15.0" layoutY="270.0" text="Speed" />
+            <TextField fx:id="speedDisplay" layoutX="57.0" layoutY="268.0" prefWidth="80.0" />
+            <Button layoutX="10.0" layoutY="226.0" mnemonicParsing="false" text="PLAY" />
+            <Button fx:id="buttonStep" layoutX="10.0" layoutY="326.0" mnemonicParsing="false" onAction="#stepButtonClicked" text="Step" />
+            <TextField layoutX="69.0" layoutY="326.0" prefWidth="80.0" />
+            <Button fx:id="buttonMake" layoutX="10.0" layoutY="384.0" mnemonicParsing="false" onAction="#makeButtonClicked" text="Make" />
+            <TextField fx:id="makeNumber" layoutX="66.0" layoutY="384.0" prefHeight="25.0" prefWidth="86.0" text="1" />
+            <ChoiceBox fx:id="makeCritter" layoutX="11.0" layoutY="423.0" prefWidth="140.0" />
+            <Button fx:id="buttonStats" layoutX="10.0" layoutY="480.0" mnemonicParsing="false" onAction="#statsButtonClicked" text="Stats" />
+            <ChoiceBox fx:id="statsCritter" layoutX="62.0" layoutY="480.0" prefWidth="100.0" />
+            <Button fx:id="buttonSeed" layoutX="10.0" layoutY="538.0" mnemonicParsing="false" onAction="#seedButtonClicked" text="Seed" />
+            <TextField fx:id="seedNumber" layoutX="62.0" layoutY="538.0" prefWidth="100.0" />
+            <Slider fx:id="worldWidth" layoutX="19.0" layoutY="69.0" max="200.0" min="10.0" />
+            <Slider fx:id="worldHeight" layoutX="19.0" layoutY="169.0" max="200.0" min="10.0" />
+            <Separator layoutX="3.0" layoutY="364.0" prefWidth="165.0" />
+            <Separator layoutX="3.0" layoutY="468.0" prefWidth="165.0" />
+            <Separator layoutX="3.0" layoutY="520.0" prefWidth="165.0" />
+            <Separator layoutX="3.0" layoutY="312.0" prefWidth="165.0" />
+            <Separator layoutX="3.0" layoutY="208.0" prefWidth="165.0" />
+            <Separator layoutX="3.0" layoutY="104.0" prefWidth="165.0" />
+            <Separator layoutX="168.0" orientation="VERTICAL" prefHeight="570.0" />
          </children>
       </AnchorPane>
    </left>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="486.0" prefWidth="629.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
