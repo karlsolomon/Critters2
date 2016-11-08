@@ -160,7 +160,10 @@ public abstract class Critter {
 	
 	private static java.util.Random rand = new java.util.Random();
 	public static int getRandomInt(int max) {
-		return rand.nextInt(max);
+		if(max < 1)
+			return 0;
+		else
+			return rand.nextInt(max);
 	}
 	public static int getRandomIntMinMax(int min, int max) {
 		if(max <= 0) return 0;
@@ -181,8 +184,7 @@ public abstract class Critter {
 	
 	private int energy = 0;
 	protected int getEnergy() {
-		if(energy<0) return 0;
-		else return energy; 
+		return energy; 
 	}
 	
 	private int x_coord;

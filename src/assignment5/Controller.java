@@ -4,6 +4,7 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -30,6 +31,7 @@ import javafx.stage.Stage;
 public class Controller implements Initializable{
 	
 	public boolean isStarted = false;
+	public static boolean playing = false;
 	
 	public Button buttonMake;
 	public Button buttonStats;
@@ -48,7 +50,7 @@ public class Controller implements Initializable{
 	@FXML
 	public static Pane worldPane;
 	public CheckBox steps;
-	public CheckBox continuous = new CheckBox();
+	public Button continuous = new Button();
 	public ChoiceBox<String> makeCritter;
 	public ChoiceBox<String> statsCritter;
 	public Slider worldWidth;
@@ -64,6 +66,8 @@ public class Controller implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		continuous.setText("Start");
+		continuous.setStyle("-fx-text-fill: green");		
 		ObservableList<String> list = FXCollections.observableArrayList(Main.critterList);
 		makeCritter.setItems(list);
 		statsCritter.setItems(list);
@@ -109,15 +113,45 @@ public class Controller implements Initializable{
 					isStarted = false;
 					CritterWorld.critterMap = new HashMap<>();
 					CritterView.drawWorld();
-				}else{
+				} else{
 					worldHeight.setValue(Params.world_height);
 					heightDisplay.setText("" + Params.world_height.intValue());
 				}
 			}
-			
 		});
 		
-		speedSlider.valueProperty().addListener((obs, oldval, newVal) -> speedSlider.setValue(newVal.intValue()));
+		continuous.setOnMouseClicked(e -> {
+			playing = !playing;
+			if(playing) {
+				continuous.setText("STOP");
+				continuous.setStyle("-fx-text-fill: red");
+			}
+			else {
+				continuous.setText("START");
+				continuous.setStyle("-fx-text-fill: green");
+			}
+			Thread play = new Thread() {
+				@Override
+				public void run() {
+					Long waitTime;
+					while(playing){
+						waitTime = 1000/Long.parseLong(speedDisplay.getText());
+						Critter.worldTimeStep();
+						CritterView.drawWorld();
+						try{
+							Thread.sleep(waitTime);
+						} catch (Exception e1){
+							e1.printStackTrace();
+						}
+					}
+				}
+			};
+			play.start();
+		});
+		
+		speedSlider.valueProperty().addListener((obs, oldval, newVal) -> {
+			speedSlider.setValue(newVal.intValue());
+		});
 				
 		widthDisplay.setText(new Integer(Params.world_width.intValue()).toString());
 		heightDisplay.setText(new Integer(Params.world_height.intValue()).toString());
@@ -160,9 +194,6 @@ public class Controller implements Initializable{
 	 * DONE
 	 */
 	public void stepButtonClicked(){
-		if(continuous.isSelected()) {
-			continuousStep();
-		}
 		String steps;
 		try{
 			 steps = stepNumber.getText();
@@ -182,9 +213,7 @@ public class Controller implements Initializable{
 	    CritterView.drawWorld();
 	}
 	
-	private void continuousStep() {
-		
-	}
+	
 	
 	/**
 	 * DONE
