@@ -9,7 +9,7 @@ public class Critter1 extends Critter{
 
 	private int dir; //direction the critter goes
 	private int[] genes = new int[8]; //genes of the critter
-	private boolean isPregnant;//if it has fought another critter1 and had any babies
+	
 	private boolean isAwake;//if the critter is awake or not
 	private static final int playing = 1;// 1/24 chance that the critter is playing
 	private static final int lookingForFood = 5;// 5/24 chance that the critter is searching for food
@@ -23,7 +23,7 @@ public class Critter1 extends Critter{
 		for(int i = 0; i < 8; i++){
 			genes[i] = Critter.getRandomInt(8);
 		}
-		isPregnant = false;
+		
 		isAwake = true;
 		dir = Critter.getRandomInt(8);
 	}
@@ -36,66 +36,35 @@ public class Critter1 extends Critter{
 
 	@Override
 	public void doTimeStep() {
-		boolean foundW = false;
-		boolean foundR = false;
-		int dirOfFood = Critter.getRandomInt(8);
 		if(!isAwake){//Is the cat asleep?
 			isAwake = willWakeUp();//Will it wake up?
-			if(isAwake){//Wakes up and gets new direction from genes
-				dir = getDirection();
-			}
 		}
 		if(isAwake){//Cat either is awake or just woke up
 			int num = Critter.getRandomInt(awake);
 			if(num < lookingForFood){
-				int i = 0;
-				//searches in a circle around it for algae, first 1 spot then 2 spots
-				while(!foundW || i < 8){
-					String findFood = look(i,false);
-					if(findFood.equals("@")){
-						foundW = true;
-						dirOfFood = i;
-					}else{
-						i++;
+				String find = look(dir,true);
+				if(find != null){
+					if(find.equals("@")){
+						run(dir);
 					}
-				}
-				i = 0;
-				while(!foundW && !foundR && i < 8){
-					String findFood = look(i,true);
-					if(findFood.equals("@")){
-						foundR = true;
-						dirOfFood = i;
-					}else{
-						i++;
-					}
-				}
-				if(foundW){
-					walk(dirOfFood);
-				}
-				else if(foundR){
-					run(dirOfFood);
 				}else{
-					walk(Critter.getRandomInt(8));
+					walk(dir+1);
 				}
-				
-				
 				
 			}else{
 				//cat will play in a set direction
 				run(dir);
 			}
 		}
-		if(isPregnant){
-			if(getEnergy() > (8*Params.min_reproduce_energy)){
-				int numKittens = Critter.getRandomInt(3);
-				for(int i = 0; i < numKittens; i++){					
-					Critter1 kitten = new Critter1();
-					kitten.genes = this.genes;
-					reproduce(kitten, Critter.getRandomInt(8));
-				}
-				isPregnant = false;
+		if(getEnergy() > (8*Params.min_reproduce_energy)){
+			int numKittens = Critter.getRandomInt(3);
+			for(int i = 0; i < numKittens; i++){					
+				Critter1 kitten = new Critter1();
+				kitten.genes = this.genes;
+				reproduce(kitten, Critter.getRandomInt(8));
 			}
-		}		
+		}
+			
 	}
 
 	/**
@@ -109,7 +78,7 @@ public class Critter1 extends Critter{
 	@Override
 	public boolean fight(String opponent) {
 		if(opponent.equals("1")){
-			isPregnant = true;
+
 			return CritterWorld.tryMove(this,dir, 1);
 		}
 		else if(opponent.equals("@")){
@@ -119,12 +88,7 @@ public class Critter1 extends Critter{
 			isAwake = true;
 			return true;
 		}else{
-			if(!isPregnant){
-				return true;
-			}			
-			else{
-				return CritterWorld.tryMove(this,dir, 1);
-			}
+			return CritterWorld.tryMove(this,dir, 1);
 		}
 	}
 
@@ -134,10 +98,6 @@ public class Critter1 extends Critter{
 			return true;
 		}
 		else return false;
-	}
-	
-	private int getDirection(){
-		return genes[Critter.getRandomInt(8)];
 	}
 	@Override
 	public String toString(){
