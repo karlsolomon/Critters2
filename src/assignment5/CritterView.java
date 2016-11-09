@@ -15,9 +15,7 @@ package assignment5;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import assignment5.Critter.CritterShape;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 

@@ -137,7 +137,6 @@ public class CritterWorld {
 			try {
 				Critter.makeCritter("Algae");
 			} catch (InvalidCritterException e) {
-				//Main.printError("Algae");
 			}
 		}
 	}
