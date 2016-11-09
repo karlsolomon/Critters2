@@ -29,7 +29,7 @@ public class Params {
 	public static int animation_speed = 1;
     static double leftMargin = 180;
     static double rightMargin = 10;
-    static double bottomMargin = 10;
+    static double bottomMargin = 25;
     static double topMargin = 35;
     
     

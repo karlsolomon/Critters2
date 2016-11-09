@@ -39,6 +39,9 @@ public final class CritterView {
 	    double[] yPoints = getYCoords(p, getFxShape(shape));
 	    Color color = c.viewColor();
 	    gc.setFill(color);
+	    gc.setLineWidth(1);
+	    gc.setStroke(c.viewOutlineColor());
+	    gc.strokePolygon(xPoints, yPoints, xPoints.length);
     	gc.fillPolygon(xPoints, yPoints, xPoints.length);
 	}
 	

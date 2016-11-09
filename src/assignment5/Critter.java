@@ -47,7 +47,6 @@ public abstract class Critter {
 	}
 	
 	public javafx.scene.paint.Color viewOutlineColor() { return viewColor(); }
-	public javafx.scene.paint.Color viewFillColor() { return viewColor(); }
 	
 	public abstract CritterShape viewShape(); 
 	

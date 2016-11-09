@@ -67,9 +67,9 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         scene.widthProperty().addListener(new ChangeListener<Number>() {
 		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
-		        if(newSceneWidth.doubleValue() < 840) {
-		        	scene.getWindow().setWidth(840);
-		        	Params.setCanvasWidth(840);
+		        if(newSceneWidth.doubleValue() < 820) {
+		        	scene.getWindow().setWidth(820);
+		        	Params.setCanvasWidth(820);
 		        }
 		        else
 		        	Params.setCanvasWidth(newSceneWidth.doubleValue());
