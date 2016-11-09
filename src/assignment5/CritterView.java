@@ -25,6 +25,44 @@ import javafx.scene.paint.Color;
  *
  */
 public final class CritterView {
+	
+	//Params stuff
+		public static int bin_size;
+		public static double leftMargin = 180;
+		public static double rightMargin = 10;
+		public static double bottomMargin = 25;
+		public static double topMargin = 35;
+		public static int animation_speed = 1;
+		public static double canvas_width = 800;
+		public static double canvas_height = 600;
+		
+		public static void setBin() {		
+			Double sizeDouble = (Double) Math.min(canvas_width/Params.world_width, canvas_height/Params.world_height);
+			int size = sizeDouble.intValue();
+			if(size % 2 != 0) {
+				size--;
+			}
+			bin_size = size;
+		}
+		
+		public static void setCanvasWidth(double width) {
+			canvas_width = width - (leftMargin + rightMargin);
+			setBin();
+			Controller.canvas.setWidth(canvas_width);
+		}
+		
+		public static void setCanvasHeight(double height) {
+			canvas_height = height - (topMargin + bottomMargin);
+			setBin();
+			Controller.canvas.setHeight(canvas_height);
+		}
+		
+		public static void setWorldParams(double width, double height) {
+			Params.world_width = width;
+			Params.world_height = height;
+			setBin();
+		}
+	
 	/**
 	 * Draws an individual critter
 	 * @param gc

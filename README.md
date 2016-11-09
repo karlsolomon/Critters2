@@ -1,5 +1,6 @@
 # Critters2
 
 TODO:
-6. implement look into another critter
-8. Expanding window
+1. Fix param shit
+2. stretch menu bar
+3. background css?

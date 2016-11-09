@@ -39,6 +39,7 @@ public class Controller implements Initializable{
 	public static boolean playing = false;
 	public static StatBox stats;
 	
+	
 	public Button buttonMake = new Button();
 	public Button buttonStats = new Button();
 	@FXML
@@ -62,6 +63,9 @@ public class Controller implements Initializable{
 	public TextField heightDisplay = new TextField();
 	public TextField speedDisplay = new TextField();
 	private ArrayList<Node> disabledWhileRunning = new ArrayList<Node>();
+	
+	
+	
 	
 	/**
 	 * this is initializing a bunch of different variables and setting up the ui functions
