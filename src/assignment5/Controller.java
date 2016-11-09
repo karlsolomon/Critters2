@@ -4,12 +4,15 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -124,6 +127,12 @@ public class Controller implements Initializable{
 			}
 		});
 		
+		String statsString;
+		try{
+			List<Critter> cList = Critter.getInstances(critterType);
+			statsString = Critter.runStats(cList);
+		}catch(Exception e){}
+		
 		continuous.setOnMouseClicked(e -> {
 			playing = !playing;
 			if(playing) {
@@ -142,24 +151,55 @@ public class Controller implements Initializable{
 						n.setDisable(false);
 				}
 			}
-			Thread play = new Thread() {
+			
+			Task<Void> task = new Task<Void>(){
+				
 				@Override
-				public void run() {
-					Long waitTime;
+				protected Void call() throws Exception {
+					
 					while(playing){
-						waitTime = 1000/Long.parseLong(speedDisplay.getText());
+						Long waitTime = 1000/Long.parseLong(speedDisplay.getText());
 						Critter.worldTimeStep();
 						CritterView.drawWorld();
-						if(statsRunning) stats.update();
+						Platform.runLater(new Runnable(){
+							@Override
+							public void run(){
+								if(statsRunning) stats.update();
+							}
+						});
 						try{
 							Thread.sleep(waitTime);
-						} catch (Exception e1){
-							e1.printStackTrace();
+						}catch(Exception e){
+							e.printStackTrace();
 						}
 					}
+					return null;
 				}
+				
 			};
-			play.start();
+			
+			Thread thread = new Thread(task);
+			thread.setDaemon(true);
+			thread.start();
+			
+//			Thread play = new Thread() {
+//				@Override
+//				public void run() {
+//					Long waitTime;
+//					while(playing){
+//						waitTime = 1000/Long.parseLong(speedDisplay.getText());
+//						Critter.worldTimeStep();
+//						CritterView.drawWorld();
+//						if(statsRunning) stats.update();
+//						try{
+//							Thread.sleep(waitTime);
+//						} catch (Exception e1){
+//							e1.printStackTrace();
+//						}
+//					}
+//				}
+//			};
+//			play.start();
 		});
 		
 		speedSlider.valueProperty().addListener((obs, oldval, newVal) -> {

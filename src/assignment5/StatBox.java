@@ -21,7 +21,10 @@ public class StatBox {
 		window = new Stage();
 		window.setTitle(name + " Stats");
 		window.setMaxWidth(250);
-		
+		window.setOnCloseRequest(e -> {
+			Controller.statsRunning = false;
+			System.out.println(Controller.statsRunning);
+		});
 		label = new Label();		
 		VBox v = new VBox();
 		v.getChildren().add(label);
@@ -35,17 +38,12 @@ public class StatBox {
 	public void update(){
 		String s;
 		try {
-			Class<?> c = Class.forName("assignment5."+name);
 			List<Critter> list = Critter.getInstances(name);
 			s = Critter.runStats(list);
 			label.setText(s);
-			window.setOnCloseRequest(e -> {
-				Controller.statsRunning = false;
-				System.out.println(Controller.statsRunning);
-			});
 			window.show();
 			
-		} catch (ClassNotFoundException |InvalidCritterException e) {}
+		} catch (InvalidCritterException e) {}
 	}
 	
 	public void close(){
