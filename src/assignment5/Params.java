@@ -28,7 +28,7 @@ public class Params {
 	public static int look_energy_cost = 1;
 	public static int animation_speed = 1;
     static double leftMargin = 180;
-    static double rightMargin = 0;
+    static double rightMargin = 10;
     static double bottomMargin = 10;
     static double topMargin = 35;
     

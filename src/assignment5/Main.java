@@ -67,12 +67,13 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         scene.widthProperty().addListener(new ChangeListener<Number>() {
 		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
-		        if(newSceneWidth.doubleValue() < 806) {
-		        	scene.getWindow().setWidth(806);
-		        	Params.setCanvasWidth(806);
+		        if(newSceneWidth.doubleValue() < 840) {
+		        	scene.getWindow().setWidth(840);
+		        	Params.setCanvasWidth(840);
 		        }
 		        else
 		        	Params.setCanvasWidth(newSceneWidth.doubleValue());
+		        Params.setBin();
 		    }
 		});
         scene.heightProperty().addListener(new ChangeListener<Number>() {
@@ -83,6 +84,7 @@ public class Main extends Application {
 		        }
 	        	else
 	        		Params.setCanvasHeight(newSceneHeight.doubleValue());
+		        Params.setBin();
 		    }
 		});
         primaryStage.setScene(scene);
