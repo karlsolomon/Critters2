@@ -33,7 +33,7 @@ public final class CritterView {
 	 * @param c
 	 * @param p
 	 */
-	private static void Draw(GraphicsContext gc, Critter c, Point p) {
+	private static void draw(GraphicsContext gc, Critter c, Point p) {
 	    CritterShape shape = c.viewShape();
 	    double[] xPoints = getXCoords(p, getFxShape(shape)); 
 	    double[] yPoints = getYCoords(p, getFxShape(shape));
@@ -75,7 +75,7 @@ public final class CritterView {
 	    gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 	    drawGrid(gc);
 	    for(Critter c : CritterWorld.critterMap.keySet()) {
-	    	Draw(gc, c, CritterWorld.critterMap.get(c));
+	    	draw(gc, c, CritterWorld.critterMap.get(c));
 	    }
 	}
 	
