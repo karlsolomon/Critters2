@@ -160,6 +160,8 @@ public class Controller implements Initializable{
 				protected Void call() throws Exception {
 					Long waitTime = 1000/Long.parseLong(speedDisplay.getText());
 					while(playing){
+						Critter.worldTimeStep();
+						CritterView.drawWorld();
 						Platform.runLater(new Runnable(){
 							@Override
 							public void run(){
@@ -171,7 +173,7 @@ public class Controller implements Initializable{
 						try{
 							Thread.sleep(waitTime);
 						}catch(Exception e){
-							e.printStackTrace();
+							WrongNumBox.display();
 						}
 					}
 					return null;
@@ -247,15 +249,20 @@ public class Controller implements Initializable{
 		isStarted = true;
 		String critterType = makeCritter.getValue();
 		String makeNum = makeNumber.getText();
-		int num = Integer.parseInt(makeNum);
+		
 		System.out.println("Make " + makeNum + " " + critterType);
 		
 		try{
+			int num = Integer.parseInt(makeNum);
+			if(num > 100){
+				BigNumBox.display();
+				return;
+			}
 			for(int i = 0; i < num; i++) {
 				Critter.makeCritter(critterType);
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			WrongNumBox.display();
 		}
 	}
 	
@@ -294,6 +301,7 @@ public class Controller implements Initializable{
 	 */
 	public void stepButtonClicked(){
 		String steps;
+		isStarted = true;
 		steps = stepNumber.getText();
 		if(steps.equals("")){
 			steps = "1";
@@ -304,7 +312,11 @@ public class Controller implements Initializable{
 			numSteps = Integer.parseInt(steps);
 		}
 		catch (NumberFormatException e) {
-			System.out.println("ADD ALERT MESSAGE HERE");//TODO: ALERT TO SAY MUST ENTER INTEGER
+			WrongNumBox.display();
+			return;
+		}
+		if(numSteps > 100){
+			BigNumBox.display();
 			return;
 		}
 		for(int i = 0; i < numSteps ; i++) {
@@ -328,8 +340,7 @@ public class Controller implements Initializable{
 			Long seedNum = Long.parseLong(seedNumber.getText());
 			Critter.setSeed(seedNum);
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			WrongNumBox.display();
 		}
 	}
 	

@@ -66,7 +66,13 @@ public class Critter2 extends Critter{
 			run(dir);
 		}
 		else if(num < searchingForFood){
-			walk(dir);
+			
+			String find = look(dir, false);
+			if(find != null){
+				if(find.equals("@")){
+					walk(dir);
+				}
+			}else walk(dir + 1);
 			dir = Critter.getRandomInt(8);
 		}
 		else{
