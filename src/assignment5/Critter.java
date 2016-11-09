@@ -307,7 +307,8 @@ public abstract class Critter {
 				}
 			}
 		}catch(Exception e){
-			throw new InvalidCritterException(critter_class_name);
+			if(critter_class_name != null)
+				throw new InvalidCritterException(critter_class_name);
 		}
 		
 		return result;

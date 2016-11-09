@@ -41,7 +41,7 @@ public class Main extends Application {
 				if(assignment5.Critter.class.isAssignableFrom(c)){
 					critterList.add(name);
 				}
-			} catch(Exception e) {}
+			} catch(ClassNotFoundException e) {}
 		}
 		critterList.remove("Critter");
 		for(String x : critterList){
@@ -55,9 +55,9 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         scene.widthProperty().addListener(new ChangeListener<Number>() {
 		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
-		        if(newSceneWidth.doubleValue() < 816.0) {
-		        	scene.getWindow().setWidth(816);
-		        	Params.setCanvasWidth(816);
+		        if(newSceneWidth.doubleValue() < 806) {
+		        	scene.getWindow().setWidth(806);
+		        	Params.setCanvasWidth(806);
 		        }
 		        else
 		        	Params.setCanvasWidth(newSceneWidth.doubleValue());
@@ -65,9 +65,9 @@ public class Main extends Application {
 		});
         scene.heightProperty().addListener(new ChangeListener<Number>() {
 		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
-		        if(newSceneHeight.doubleValue() < 639) {
-		        	scene.getWindow().setHeight(639);
-		        	Params.setCanvasHeight(639);
+		        if(newSceneHeight.doubleValue() < 680) {
+		        	scene.getWindow().setHeight(680);
+		        	Params.setCanvasHeight(680);
 		        }
 	        	else
 	        		Params.setCanvasHeight(newSceneHeight.doubleValue());

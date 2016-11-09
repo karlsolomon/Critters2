@@ -25,7 +25,8 @@ public final class CritterView {
 	    CritterShape shape = c.viewShape();
 	    double[] xPoints = getXCoords(p, getFxShape(shape)); 
 	    double[] yPoints = getYCoords(p, getFxShape(shape));
-	    gc.setFill(c.viewColor());
+	    Color color = c.viewColor();
+	    gc.setFill(color);
     	gc.fillPolygon(xPoints, yPoints, xPoints.length);
 	}
 	

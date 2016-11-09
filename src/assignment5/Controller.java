@@ -131,7 +131,9 @@ public class Controller implements Initializable{
 		try{
 			List<Critter> cList = Critter.getInstances(critterType);
 			statsString = Critter.runStats(cList);
-		}catch(Exception e){}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
 		continuous.setOnMouseClicked(e -> {
 			playing = !playing;
@@ -156,14 +158,13 @@ public class Controller implements Initializable{
 				
 				@Override
 				protected Void call() throws Exception {
-					
+					Long waitTime = 1000/Long.parseLong(speedDisplay.getText());
 					while(playing){
-						Long waitTime = 1000/Long.parseLong(speedDisplay.getText());
-						Critter.worldTimeStep();
-						CritterView.drawWorld();
 						Platform.runLater(new Runnable(){
 							@Override
 							public void run(){
+								Critter.worldTimeStep();
+								CritterView.drawWorld();
 								if(statsRunning) stats.update();
 							}
 						});
@@ -254,7 +255,7 @@ public class Controller implements Initializable{
 				Critter.makeCritter(critterType);
 			}
 		}catch(Exception e){
-			
+			e.printStackTrace();
 		}
 	}
 	
