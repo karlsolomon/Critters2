@@ -246,6 +246,10 @@ public class Controller implements Initializable{
 		
 		try{
 			int num = Integer.parseInt(makeNum);
+			if(num > 100){
+				BigNumBox.display();
+				return;
+			}
 			for(int i = 0; i < num; i++) {
 				Critter.makeCritter(critterType);
 			}
@@ -301,6 +305,10 @@ public class Controller implements Initializable{
 		}
 		catch (NumberFormatException e) {
 			WrongNumBox.display();
+			return;
+		}
+		if(numSteps > 100){
+			BigNumBox.display();
 			return;
 		}
 		for(int i = 0; i < numSteps ; i++) {
