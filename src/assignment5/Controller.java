@@ -16,37 +16,20 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+
 
 public class Controller implements Initializable{
 	
@@ -80,7 +63,9 @@ public class Controller implements Initializable{
 	public TextField speedDisplay = new TextField();
 	private ArrayList<Node> disabledWhileRunning = new ArrayList<Node>();
 	
-
+	/**
+	 * this is initializing a bunch of different variables and setting up the ui functions
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		addNodes();
@@ -139,13 +124,7 @@ public class Controller implements Initializable{
 			}
 		});
 		
-		String statsString;
-		try{
-			List<Critter> cList = Critter.getInstances(critterType);
-			statsString = Critter.runStats(cList);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		
 		
 		continuous.setOnMouseClicked(e -> {
 			playing = !playing;
@@ -190,31 +169,12 @@ public class Controller implements Initializable{
 					}
 					return null;
 				}
-				
+		
 			};
 			
 			Thread thread = new Thread(task);
 			thread.setDaemon(true);
 			thread.start();
-			
-//			Thread play = new Thread() {
-//				@Override
-//				public void run() {
-//					Long waitTime;
-//					while(playing){
-//						waitTime = 1000/Long.parseLong(speedDisplay.getText());
-//						Critter.worldTimeStep();
-//						CritterView.drawWorld();
-//						if(statsRunning) stats.update();
-//						try{
-//							Thread.sleep(waitTime);
-//						} catch (Exception e1){
-//							e1.printStackTrace();
-//						}
-//					}
-//				}
-//			};
-//			play.start();
 		});
 		
 		speedSlider.valueProperty().addListener((obs, oldval, newVal) -> {
@@ -234,7 +194,9 @@ public class Controller implements Initializable{
 		
 	}
 	
-	
+	/**
+	 * adding the nodes to be disabled when the animation is being run
+	 */
 	public void addNodes(){
 		disabledWhileRunning.add(buttonMake);
 		disabledWhileRunning.add(buttonStats);
@@ -255,7 +217,8 @@ public class Controller implements Initializable{
 	}
 	
 	/*
-	 * DONE
+	 * makes an input amount of the selected critter and adds them to
+	 * the critterMap to be displayed
 	 */
 	public void makeButtonClicked() {
 		isStarted = true;
@@ -278,6 +241,9 @@ public class Controller implements Initializable{
 		}
 	}
 	
+	/**
+	 * Takes in the name of a critter and calls that critters runstats
+	 */
 	public void statsButtonClicked(){
 		String s = statsCritter.getValue();
 		if(s == null) return;
@@ -309,7 +275,8 @@ public class Controller implements Initializable{
 	}
 	
 	/*
-	 * DONE
+	 * Takes in a number for how many steps are to be taken,
+	 * and when the button is pressed, the system does a worldTimeStep
 	 */
 	public void stepButtonClicked(){
 		String steps;
@@ -343,7 +310,7 @@ public class Controller implements Initializable{
 	
 	
 	/**
-	 * DONE
+	 * user provides a seed input and when the button is pressed, sets the seed for the program
 	 */
 	public void seedButtonClicked(){
 		System.out.println("Set Seed to " + seedNumber.getText());
@@ -357,7 +324,7 @@ public class Controller implements Initializable{
 	}
 	
 	/**
-	 * DONE
+	 * calls closeProgram to close the program
 	 */
 	public void quitButtonClicked(){
 		System.out.println("Clicked the quit Button!");
@@ -365,7 +332,7 @@ public class Controller implements Initializable{
 	}
 	
 	/**
-	 * DONE
+	 * Closes the Program
 	 */
 	private void closeProgram(){
 		Boolean answer = ConfirmBox.display("Quit Critters", "Are you sure you want to quit?");
