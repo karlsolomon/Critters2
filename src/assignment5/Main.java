@@ -77,9 +77,9 @@ public class Main extends Application {
 		});
         scene.heightProperty().addListener(new ChangeListener<Number>() {
 		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
-		        if(newSceneHeight.doubleValue() < 680) {
-		        	scene.getWindow().setHeight(680);
-		        	Params.setCanvasHeight(680);
+		        if(newSceneHeight.doubleValue() < 700) {
+		        	scene.getWindow().setHeight(700);
+		        	Params.setCanvasHeight(700);
 		        }
 	        	else
 	        		Params.setCanvasHeight(newSceneHeight.doubleValue());
