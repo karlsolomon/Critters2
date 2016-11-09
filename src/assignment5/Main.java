@@ -3,6 +3,8 @@ package assignment5;
 import java.io.*;
 import java.util.ArrayList;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -26,7 +28,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
     	stage = primaryStage;
-    	stage.setResizable(false);
+    	//stage.setResizable(false);
     	final String s = System.getProperty("user.dir");
 		File src = new File(s + "\\src\\assignment5");
 		File[] listOfFiles = src.listFiles();
@@ -51,23 +53,37 @@ public class Main extends Application {
 
         root.getChildren().add(parent);
         Scene scene = new Scene(root);
+        scene.widthProperty().addListener(new ChangeListener<Number>() {
+		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+		        if(newSceneWidth.doubleValue() < 816.0) {
+		        	scene.getWindow().setWidth(816);
+		        	Params.setCanvasWidth(816);
+		        }
+		        else
+		        	Params.setCanvasWidth(newSceneWidth.doubleValue());
+		    }
+		});
+        scene.heightProperty().addListener(new ChangeListener<Number>() {
+		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+		        if(newSceneHeight.doubleValue() < 639) {
+		        	scene.getWindow().setHeight(639);
+		        	Params.setCanvasHeight(639);
+		        }
+	        	else
+	        		Params.setCanvasHeight(newSceneHeight.doubleValue());
+		    }
+		});
         primaryStage.setScene(scene);
         primaryStage.show();    
         
-
         double height = primaryStage.getHeight();
         double width = primaryStage.getWidth();
-        double leftMargin = 180;
-        double rightMargin = 0;
-        double bottomMargin = 10;
-        double topMargin = 35;
-       // canvas = Controller.canvas;//new Canvas(Params.canvas_width,Params.canvas_height);
-        Params.setCanvasParams(width - (leftMargin + rightMargin), height - (topMargin + bottomMargin));
+
+        Params.setCanvasWidth(width);
+        Params.setCanvasHeight(height);
         Params.setWorldParams(50, 50);
-        Controller.canvas.setWidth(width - (leftMargin + rightMargin));
-        Controller.canvas.setHeight(height - (topMargin + bottomMargin));
-        Controller.canvas.setLayoutX(leftMargin);
-        Controller.canvas.setLayoutY(topMargin);
+        Controller.canvas.setLayoutX(Params.leftMargin);
+        Controller.canvas.setLayoutY(Params.topMargin);
         root.getChildren().add(Controller.canvas);
     }
     

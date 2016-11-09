@@ -15,15 +15,35 @@ public class Params {
 	public static int start_energy = 100;
 	public static int look_energy_cost = 1;
 	public static int animation_speed = 1;
-
+    static double leftMargin = 180;
+    static double rightMargin = 0;
+    static double bottomMargin = 10;
+    static double topMargin = 35;
+    
+    
 	public static void setWorldParams(double width, double height) {
 		world_width = width;
 		world_height = height;
 		setBin();
 	}
-	public static void setCanvasParams(double width, double height) {
-		canvas_width = width;
-		canvas_height = height;
+	
+	public static void setWorldWidth(double width) {
+		
+	}
+	
+	public static void setWorldHeight(double height) {
+		
+	}
+	
+	public static void setCanvasWidth(double width) {
+		canvas_width = width - (leftMargin + rightMargin);
+		setBin();
+		Controller.canvas.setWidth(canvas_width);
+	}
+	public static void setCanvasHeight(double height) {
+		canvas_height = height - (topMargin + bottomMargin);
+		setBin();
+		Controller.canvas.setHeight(canvas_height);
 	}
 	
 	public static void setBin() {		

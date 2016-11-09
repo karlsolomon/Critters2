@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -97,6 +100,7 @@ public class Controller implements Initializable{
 				}
 			}
 		});
+		
 		worldHeight.valueProperty().addListener((obs, oldval, newVal) -> {
 			worldHeight.setValue(newVal.intValue());
 			if (!isStarted) {
@@ -249,14 +253,12 @@ public class Controller implements Initializable{
 	 */
 	public void stepButtonClicked(){
 		String steps;
-		try{
-			steps = stepNumber.getText();
-		}
-		catch (Exception e) {
+		steps = stepNumber.getText();
+		if(steps.equals("")){
 			steps = "1";
 		}
 		System.out.println("Step " + steps + " time(s)");	
-		int numSteps = 1;
+		int numSteps;
 		try{
 			numSteps = Integer.parseInt(steps);
 		}
