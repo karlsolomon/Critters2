@@ -1,16 +1,15 @@
-/* CRITTERS Critter.java
- * EE422C Project 4 submission by
- * Replace <...> with your actual data.
- * <Student1 Name>
- * <Student1 EID>
- * <Student1 5-digit Unique No.>
- * <Student2 Name>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
+/* Critter2 Painter.java
+ * EE422C Project 5 submission by
+ * Christopher Sickler
+ * cbs2468
+ * 16445
+ * Karl Solomon
+ * kws653
+ * 16445
  * Slip days used: <0>
- * Fall 2015
- */
-package assignment5;
+ * Git URL: https://github.com/karlsolomon/Critters2 
+ * Fall 2016
+ */package assignment5;
 
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;

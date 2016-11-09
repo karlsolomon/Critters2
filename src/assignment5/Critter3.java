@@ -1,3 +1,15 @@
+/* Critter2 Critter3.java
+ * EE422C Project 5 submission by
+ * Christopher Sickler
+ * cbs2468
+ * 16445
+ * Karl Solomon
+ * kws653
+ * 16445
+ * Slip days used: <0>
+ * Git URL: https://github.com/karlsolomon/Critters2 
+ * Fall 2016
+ */
 package assignment5;
 /**
  * This Critter's name is Donald. He doesn't like being labeled as a number. He thinks its unfair.
