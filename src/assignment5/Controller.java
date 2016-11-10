@@ -153,8 +153,6 @@ public class Controller implements Initializable{
 				protected Void call() throws Exception {
 					Long waitTime = 1000/Long.parseLong(speedDisplay.getText());
 					while(playing){
-						Critter.worldTimeStep();
-						CritterView.drawWorld();
 						Platform.runLater(new Runnable(){
 							@Override
 							public void run(){
