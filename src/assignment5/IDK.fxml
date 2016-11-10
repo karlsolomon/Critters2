@@ -31,23 +31,23 @@
    <left>
       <AnchorPane maxWidth="286.0" minWidth="100.0" prefHeight="575.0" prefWidth="170.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="widthDisplay" layoutX="84.0" layoutY="22.0" prefWidth="80.0" />
-            <TextField fx:id="heightDisplay" layoutX="88.0" layoutY="124.0" prefWidth="80.0" />
+            <TextField fx:id="widthDisplay" layoutX="84.0" layoutY="22.0" prefWidth="80.0" text="50" />
+            <TextField fx:id="heightDisplay" layoutX="88.0" layoutY="124.0" prefWidth="80.0" text="50" />
             <Label layoutX="5.0" layoutY="24.0" text="World Width" />
             <Label layoutX="7.0" layoutY="127.0" text="World Height" />
             <Slider fx:id="speedSlider" layoutX="63.0" layoutY="231.0" max="20.0" min="1.0" prefWidth="80.0" />
             <Label layoutX="15.0" layoutY="270.0" text="Speed" />
-            <TextField fx:id="speedDisplay" layoutX="57.0" layoutY="268.0" prefWidth="80.0" />
+            <TextField fx:id="speedDisplay" layoutX="57.0" layoutY="268.0" prefWidth="80.0" text="1" />
             <Button fx:id="continuous" layoutX="10.0" layoutY="226.0" mnemonicParsing="false" text="PLAY" />
             <Button fx:id="buttonStep" layoutX="10.0" layoutY="326.0" mnemonicParsing="false" onAction="#stepButtonClicked" text="Step" />
-            <TextField fx:id="stepNumber" layoutX="69.0" layoutY="326.0" prefWidth="80.0" />
+            <TextField fx:id="stepNumber" layoutX="69.0" layoutY="326.0" prefWidth="80.0" text="1" />
             <Button fx:id="buttonMake" layoutX="10.0" layoutY="384.0" mnemonicParsing="false" onAction="#makeButtonClicked" text="Make" />
             <TextField fx:id="makeNumber" layoutX="66.0" layoutY="384.0" prefHeight="25.0" prefWidth="86.0" text="1" />
             <ChoiceBox fx:id="makeCritter" layoutX="11.0" layoutY="423.0" prefWidth="140.0" />
             <Button fx:id="buttonStats" layoutX="10.0" layoutY="480.0" mnemonicParsing="false" onAction="#statsButtonClicked" text="Stats" />
             <ChoiceBox fx:id="statsCritter" layoutX="62.0" layoutY="480.0" prefWidth="100.0" />
             <Button fx:id="buttonSeed" layoutX="10.0" layoutY="538.0" mnemonicParsing="false" onAction="#seedButtonClicked" text="Seed" />
-            <TextField fx:id="seedNumber" layoutX="62.0" layoutY="538.0" prefWidth="100.0" />
+            <TextField fx:id="seedNumber" layoutX="62.0" layoutY="538.0" prefWidth="100.0" text="1.0" />
             <Slider fx:id="worldWidth" layoutX="19.0" layoutY="69.0" max="150.0" min="10.0" />
             <Slider fx:id="worldHeight" layoutX="19.0" layoutY="169.0" max="150.0" min="10.0" />
             <Separator layoutX="3.0" layoutY="364.0" prefWidth="165.0" />

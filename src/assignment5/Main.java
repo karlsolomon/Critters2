@@ -68,35 +68,34 @@ public class Main extends Application {
 		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
 		        if(newSceneWidth.doubleValue() < 820) {
 		        	scene.getWindow().setWidth(820);
-		        	Params.setCanvasWidth(820);
+		        	CritterView.setCanvasWidth(820);
 		        }
 		        else
-		        	Params.setCanvasWidth(newSceneWidth.doubleValue());
-		        Params.setBin();
+		        	CritterView.setCanvasWidth(newSceneWidth.doubleValue());
+		        CritterView.setBin();
 		    }
 		});
         scene.heightProperty().addListener(new ChangeListener<Number>() {
 		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
 		        if(newSceneHeight.doubleValue() < 700) {
 		        	scene.getWindow().setHeight(700);
-		        	Params.setCanvasHeight(700);
+		        	CritterView.setCanvasHeight(700);
 		        }
 	        	else
-	        		Params.setCanvasHeight(newSceneHeight.doubleValue());
-		        Params.setBin();
+	        		CritterView.setCanvasHeight(newSceneHeight.doubleValue());
+		        CritterView.setBin();
 		    }
 		});
         primaryStage.setScene(scene);
-        primaryStage.show();    
+        primaryStage.show();
         
         double height = primaryStage.getHeight();
         double width = primaryStage.getWidth();
-
-        Params.setCanvasWidth(width);
-        Params.setCanvasHeight(height);
-        Params.setWorldParams(50, 50);
-        Controller.canvas.setLayoutX(Params.leftMargin);
-        Controller.canvas.setLayoutY(Params.topMargin);
+        CritterView.setCanvasWidth(width);
+        CritterView.setCanvasHeight(height);
+        CritterView.setWorldParams(50, 50);
+        Controller.canvas.setLayoutX(CritterView.leftMargin);
+        Controller.canvas.setLayoutY(CritterView.topMargin);
         root.getChildren().add(Controller.canvas);
     }
     

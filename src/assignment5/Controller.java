@@ -66,7 +66,6 @@ public class Controller implements Initializable{
 	
 	
 	
-	
 	/**
 	 * this is initializing a bunch of different variables and setting up the ui functions
 	 */
@@ -79,28 +78,27 @@ public class Controller implements Initializable{
 		makeCritter.setItems(list);
 		statsCritter.setItems(list);
 		
-		worldWidth.setValue(Params.world_width);
+		worldWidth.setValue(CritterView.toDouble(Params.world_width));
 		worldHeight.setValue(Params.world_height);
 		worldWidth.valueProperty().addListener((obs, oldval, newVal) -> {
 			worldWidth.setValue(newVal.intValue());
 
 			if (!isStarted) {
-				Params.world_width = worldWidth.getValue();
-				Params.setBin();
+				Params.world_width = CritterView.toInt(worldWidth.getValue());
+				CritterView.setBin();
 				CritterView.drawWorld();
 			}else{
-				//Pop-Up saying can not change world dimensions
-				
+				//Pop-Up saying can not change world dimensions				
 				boolean reset = ConfirmBox.display("Da fuq?", "Are you sure you want to edit world dimensions?\n(Doing so will clear all Critters from the world.)");
 				if(reset){
-					Params.world_width = worldWidth.getValue();
-					Params.setBin();
+					Params.world_width = CritterView.toInt(worldWidth.getValue());
+					CritterView.setBin();
 					isStarted = false;
 					CritterWorld.critterMap = new HashMap<>();
 					CritterView.drawWorld();
 				}else{
 					worldWidth.setValue(Params.world_width);
-					widthDisplay.setText("" + Params.world_width.intValue());
+					widthDisplay.setText("" + Params.world_width);
 				}
 			}
 		});
@@ -108,22 +106,22 @@ public class Controller implements Initializable{
 		worldHeight.valueProperty().addListener((obs, oldval, newVal) -> {
 			worldHeight.setValue(newVal.intValue());
 			if (!isStarted) {
-				Params.world_height = worldHeight.getValue();
-				Params.setBin();
+				Params.world_height = CritterView.toInt(worldHeight.getValue());
+				CritterView.setBin();
 				CritterView.drawWorld();
 			}else{
 				//Pop-Up saying can not change world dimensions
 				
 				boolean reset = ConfirmBox.display("Da fuq?", "Are you sure you want to edit world dimensions?\n(Doing so will clear all Critters from the world.)");
 				if(reset){
-					Params.world_height = worldHeight.getValue();
-					Params.setBin();
+					Params.world_height = CritterView.toInt(worldHeight.getValue());
+					CritterView.setBin();
 					isStarted = false;
 					CritterWorld.critterMap = new HashMap<>();
 					CritterView.drawWorld();
 				} else{
 					worldHeight.setValue(Params.world_height);
-					heightDisplay.setText("" + Params.world_height.intValue());
+					heightDisplay.setText("" + Params.world_height);
 				}
 			}
 		});
@@ -185,15 +183,18 @@ public class Controller implements Initializable{
 			speedSlider.setValue(newVal.intValue());
 		});
 				
-		widthDisplay.setText(new Integer(Params.world_width.intValue()).toString());
-		heightDisplay.setText(new Integer(Params.world_height.intValue()).toString());
+		widthDisplay.setText(new Integer(Params.world_width).toString());
+		heightDisplay.setText(new Integer(Params.world_height).toString());
 		widthDisplay.textProperty().bindBidirectional(worldWidth.valueProperty(), NumberFormat.getNumberInstance());
 		heightDisplay.textProperty().bindBidirectional(worldHeight.valueProperty(), NumberFormat.getNumberInstance());
 		
-		speedSlider.setValue(Params.animation_speed);
-		speedDisplay.setText(new Integer(Params.animation_speed).toString());
+		speedSlider.setValue(CritterView.animation_speed);
+		speedDisplay.setText(new Integer(CritterView.animation_speed).toString());
 		speedDisplay.textProperty().bindBidirectional(speedSlider.valueProperty(), NumberFormat.getNumberInstance());
 		
+		statsCritter.setValue("Algae");
+		makeCritter.setValue("Algae");
+
 
 		
 	}
@@ -345,12 +346,18 @@ public class Controller implements Initializable{
 		}
 	}
 
-
-
 	public void clearGrid(){
 		CritterWorld.critterMap = new HashMap<>();
 		CritterView.drawWorld();
 	}
+	
+//	public ChoiceBox<String> getCritterChoiceBox() {
+//		return makeCritter;
+//	}
+//	
+//	public ChoiceBox<String> getStatsChoiceBox() {
+//		return this.statsCritter;
+//	}
 
 	
 }

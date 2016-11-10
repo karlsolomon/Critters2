@@ -102,8 +102,8 @@ public class CritterWorld {
 	 * @return random point location on the world map
 	 */
 	public static Point getRandomLocation(){
-		int x = Critter.getRandomInt(Params.world_width.intValue());
-		int y = Critter.getRandomInt(Params.world_height.intValue());
+		int x = Critter.getRandomInt(Params.world_width);
+		int y = Critter.getRandomInt(Params.world_height);
 		return new Point(x,y);
 	}
 	/**

@@ -58,8 +58,8 @@ public final class CritterView {
 		}
 		
 		public static void setWorldParams(double width, double height) {
-			Params.world_width = width;
-			Params.world_height = height;
+			Params.world_width = toInt(width);
+			Params.world_height = toInt(height);
 			setBin();
 		}
 	
@@ -86,22 +86,22 @@ public final class CritterView {
 		gc.setLineWidth(0.1);
 		double x1 = 0;
 		double y1 = 0;
-		double y2 = Params.world_height*Params.bin_size;
+		double y2 = Params.world_height*CritterView.bin_size;
 		
 		//Width
 		for(int i = 0; i <= Params.world_width; i++) {
 	        gc.strokeLine(x1, y1, x1, y2);
-	        x1 += Params.bin_size;
+	        x1 += CritterView.bin_size;
 		}
 		
 		x1 = 0;
-		double x2 = Params.world_width*Params.bin_size+1;
+		double x2 = Params.world_width*CritterView.bin_size+1;
 		y1 = 0;
 		
 		//Height
 		for(int i = 0; i <= Params.world_height; i++) {
 	        gc.strokeLine(x1, y1, x2, y1);
-	        y1 += Params.bin_size;
+	        y1 += CritterView.bin_size;
 		}
 	}
 	
@@ -168,7 +168,7 @@ public final class CritterView {
 	 * @return
 	 */
 	private static ArrayList<Double> equilateralPoints(int numPoints, double deg) {
-		int distance = Params.bin_size/2;
+		int distance = CritterView.bin_size/2;
 		double degreeStep = 360/numPoints;
 		ArrayList<Double> pts = new ArrayList<Double>();
 		for(int i = 0; i < numPoints; i++) {
@@ -186,7 +186,7 @@ public final class CritterView {
 	 * @return
 	 */
 	public static double[] getXCoords(Point p, ArrayList<Double> allPoints) {
-		double xLocation = (double) p.getX()*Params.bin_size + Params.bin_size/2;
+		double xLocation = (double) p.getX()*CritterView.bin_size + CritterView.bin_size/2;
 		double[] xPoints = new double[allPoints.size()/2];
 		for(int i = 0; i < allPoints.size()/2; i++) {
 			xPoints[i] = allPoints.get(2*i) + xLocation;
@@ -201,12 +201,22 @@ public final class CritterView {
 	 * @return
 	 */
 	public static double[] getYCoords(Point p, ArrayList<Double> allPoints) {
-		double yLocation = (double) p.getY()*Params.bin_size + Params.bin_size/2;
+		double yLocation = (double) p.getY()*CritterView.bin_size + CritterView.bin_size/2;
 		double[] yPoints = new double[allPoints.size()/2];
 		for(int i = 0; i < allPoints.size()/2; i++) {
 			yPoints[i] = allPoints.get(2*i+1) + yLocation;
 		}
 		return yPoints;
+	}
+	
+	public static Double toDouble(int i) {
+		Double d = Integer.valueOf(i).doubleValue();
+		return d;
+	}
+	
+	public static Integer toInt(double d) {
+		Integer i = Double.valueOf(d).intValue();
+		return i;
 	}
 	
 }
