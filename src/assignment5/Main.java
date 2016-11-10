@@ -64,6 +64,8 @@ public class Main extends Application {
 
         root.getChildren().add(parent);
         Scene scene = new Scene(root);
+        primaryStage.setHeight(700);
+        primaryStage.setWidth(820);
         scene.widthProperty().addListener(new ChangeListener<Number>() {
 		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
 		        if(newSceneWidth.doubleValue() < 820) {
