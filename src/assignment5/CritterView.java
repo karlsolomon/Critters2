@@ -82,7 +82,7 @@ public final class CritterView {
 	}
 	
 	private static void drawGrid(GraphicsContext gc) {
-		gc.setStroke(Color.BLACK);
+		gc.setStroke(Color.WHITE);
 		gc.setLineWidth(0.1);
 		double x1 = 0;
 		double y1 = 0;
