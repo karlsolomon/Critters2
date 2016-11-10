@@ -23,7 +23,7 @@ public class Critter4 extends Critter{
 	public CritterShape viewShape() {
 		return CritterShape.DIAMOND;
 	}
-	public javafx.scene.paint.Color viewColor() { return javafx.scene.paint.Color.BLACK; }
+	public javafx.scene.paint.Color viewColor() { return javafx.scene.paint.Color.CORAL; }
 
 	@Override
 	public String toString() { return "4"; }

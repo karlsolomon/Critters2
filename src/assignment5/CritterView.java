@@ -168,7 +168,7 @@ public final class CritterView {
 	 * @return
 	 */
 	private static ArrayList<Double> equilateralPoints(int numPoints, double deg) {
-		int distance = CritterView.bin_size/2;
+		int distance = (CritterView.bin_size/2)-1;
 		double degreeStep = 360/numPoints;
 		ArrayList<Double> pts = new ArrayList<Double>();
 		for(int i = 0; i < numPoints; i++) {
